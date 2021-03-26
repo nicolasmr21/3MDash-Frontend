@@ -1,0 +1,45 @@
+@import 'src/assets/styles/colors';
+
+.logo {
+  width: 77px;
+  margin: 16px 30px 16px 0;
+  float: left;
+}
+
+.header-menu {
+  line-height: 64px;
+}
+
+.sider-menu {
+  height: 100%;
+  border-right: 0;
+}
+
+.inner-layout {
+  margin-top: 30px;
+  padding: 0 24px 24px;
+  min-height: 100vh;
+}
+
+.ant-layout-header,
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+  background: $darkgrey;
+}
+
+.btn-adjustment {
+  i {
+    margin: 0;
+  }
+}
+
+.right {
+  float: right;
+}
+
+.ant-menu-item a {
+  color: rgba(255,255,255,.65);
+}
+
+.ant-layout{
+  background-color: $background-color;
+}
