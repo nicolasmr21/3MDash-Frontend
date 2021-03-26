@@ -1,4 +1,13 @@
-<div class="main-content">
-  hola
-  <router-outlet></router-outlet>
-</div>
+<nb-layout>
+  <nb-layout-header>
+    <a (click)="toggle()">
+      <nb-icon icon="menu-outline"></nb-icon>
+    </a>
+  </nb-layout-header>
+  <nb-sidebar>
+    <nb-menu [items]="menu"></nb-menu>
+  </nb-sidebar>
+  <nb-layout-column class="colored-column-basic">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>
