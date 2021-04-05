@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import {NbCardModule, NbLayoutModule} from "@nebular/theme";
 
 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
     CommonModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    NbLayoutModule,
+    NbCardModule
   ]
 })
 export class LoginModule { }
