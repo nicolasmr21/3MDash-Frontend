@@ -3,7 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import {NbCardModule, NbLayoutModule} from "@nebular/theme";
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbIconModule,
+  NbInputModule,
+  NbLayoutModule
+} from "@nebular/theme";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -12,7 +20,12 @@ import {NbCardModule, NbLayoutModule} from "@nebular/theme";
     CommonModule,
     LoginRoutingModule,
     NbLayoutModule,
-    NbCardModule
+    NbCardModule,
+    NbIconModule,
+    NbInputModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    ReactiveFormsModule
   ]
 })
 export class LoginModule { }

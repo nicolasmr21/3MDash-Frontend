@@ -4,17 +4,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Inicio',
     icon: 'home-outline',
-    link: '/pages/dashboard',
+    link: '/main/dashboard',
     home: true,
   },
   {
     title: 'Configuración',
     icon: 'settings-2-outline',
-    link: '/pages/dashboard',
+    link: '/main/settings',
     home: true,
   },
   {
-    title: 'MATRICES',
+    title: 'MEDIDAS',
     group: true,
   },
   {
@@ -22,12 +22,92 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'activity-outline',
     children: [
       {
-        title: 'Stepper',
-        link: '/pages/layout/stepper',
+        title: 'Matriz',
+        link: '/main/active/matrix',
       },
       {
-        title: 'List',
-        link: '/pages/layout/list',
+        title: 'Gráficos',
+        link: '/main/active/graphs',
+      },
+    ],
+  },
+  {
+    title: 'Energía Reactiva',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Matriz',
+        link: '/main/reactive/matrix',
+      },
+      {
+        title: 'Gráficos',
+        link: '/main/reactive/matrix',
+      },
+    ],
+  },
+  {
+    title: 'Factor de potencia',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Matriz',
+        link: '/main/power/matrix',
+      },
+      {
+        title: 'Gráficos',
+        link: '/main/power/graphs',
+      },
+    ],
+  },
+  {
+    title: 'Exceso de reactivos',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Matriz',
+        link: '/main/excess/matrix',
+      },
+      {
+        title: 'Gráficos',
+        link: '/main/excess/graphs',
+      },
+    ],
+  },
+  {
+    title: 'Precios de bolsa',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Gráficos',
+        link: '/main/prices/graphs',
+      },
+    ],
+  },
+  {
+    title: 'Energía Inductiva',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Matriz',
+        link: '/main/inductive/matrix',
+      },
+      {
+        title: 'Gráficos',
+        link: '/main/inductive/graphs',
+      },
+    ],
+  },
+  {
+    title: 'Energía Capacitiva',
+    icon: 'activity-outline',
+    children: [
+      {
+        title: 'Matriz',
+        link: '/main/capacitive/matrix',
+      },
+      {
+        title: 'Gráficos',
+        link: '/main/capacitive/graphs',
       },
     ],
   },

@@ -1,13 +1,57 @@
 <nb-layout>
-  <nb-layout-column class="colored-column-basic">
-    <nb-card status="primary">
-      <nb-card-header class="">Iniciar sesión</nb-card-header>
-      <nb-card-body>
-        A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-        Originally, nebula was a name for any diffuse astronomical object,
-        including galaxies beyond the Milky Way.
+  <nb-layout-column class="h-100 d-flex">
+    <nb-card status="primary" class="m-auto col p-0">
+      <nb-card-header class="text-center">
+        <nb-icon icon="person-outline"></nb-icon>
+      </nb-card-header>
+      <nb-card-body class="text-center p-4">
+        <section>
+          <h1>3MDashboard</h1>
+        </section>
+
+        <section>
+          <form aria-labelledby="title" [formGroup]="form">
+            <div class="form-group">
+              <label class="label" for="input-user" hidden>Usuario:</label>
+              <input nbInput
+                     formControlName="user"
+                     fullWidth
+                     name="user"
+                     id="input-user"
+                     placeholder="Usuario"
+                     fieldSize="large"
+                     autofocus
+              >
+            </div>
+            <div class="form-group mt-4">
+              <span class="label-with-link">
+                <label class="label" for="input-password" hidden>Contraseña:</label>
+                <a class="forgot-password caption-2" routerLink="../request-password" hidden>Forgot Password?</a>
+              </span>
+              <input nbInput
+                     fullWidth
+                     formControlName="password"
+                     name="password"
+                     type="password"
+                     id="input-password"
+                     placeholder="Contraseña"
+                     fieldSize="large"
+              >
+            </div>
+            <button nbButton
+                    [disabled]="form.invalid"
+                    fullWidth
+                    status="primary"
+                    size="large"
+                    class="mt-4"
+                    (click)="login()"
+                    >
+              Iniciar sesión
+            </button>
+          </form>
+        </section>
+
       </nb-card-body>
-      <nb-card-footer>By Wikipedia</nb-card-footer>
     </nb-card>
   </nb-layout-column>
 </nb-layout>
