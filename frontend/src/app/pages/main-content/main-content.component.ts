@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MENU_ITEMS } from "../../utils/pages.menu";
+import { MENU_ITEMS } from "../../utils/items.menu";
 import { NbSidebarService } from "@nebular/theme";
 
 @Component({
