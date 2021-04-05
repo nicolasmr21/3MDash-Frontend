@@ -6,14 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainContentComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-      },
-    ],
   },
-
 ];
 
 @NgModule({
