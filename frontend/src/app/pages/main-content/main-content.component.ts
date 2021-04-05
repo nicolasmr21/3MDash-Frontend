@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { MENU_ITEMS } from "../../utils/items.menu";
+import { MENU_ITEMS, PROFILE_ITEMS } from "../../utils/items.menu";
 import { NbSidebarService } from "@nebular/theme";
+import { APP_NAME } from "../../utils/app.titles";
 
 @Component({
   selector: 'app-main-content',
@@ -10,6 +11,8 @@ import { NbSidebarService } from "@nebular/theme";
 export class MainContentComponent {
 
   menu = MENU_ITEMS;
+  title = APP_NAME;
+  items = PROFILE_ITEMS;
 
   constructor(
     private sidebarService: NbSidebarService

@@ -112,3 +112,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 ];
+
+export const PROFILE_ITEMS: NbMenuItem[] = [
+  {
+    title: 'Configuración',
+    icon: 'settings-2-outline',
+    link: '/main/settings',
+  },
+  {
+    title: 'Cerrar sesión',
+    icon: 'log-out-outline',
+    link: '/main/logout',
+  },
+];

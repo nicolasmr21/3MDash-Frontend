@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { APP_NAME } from "../../utils/app.titles";
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
+  title = APP_NAME;
 
   constructor(
     private router: Router,

@@ -4,11 +4,11 @@ import { MainContentRoutingModule } from './main-content.routing.module';
 import { MainContentComponent } from './main-content.component';
 import {
   NbButtonModule,
-  NbCardModule,
+  NbCardModule, NbContextMenuModule,
   NbIconModule,
   NbLayoutModule,
   NbMenuModule,
-  NbSidebarModule
+  NbSidebarModule, NbUserModule
 } from "@nebular/theme";
 
 @NgModule({
@@ -22,6 +22,8 @@ import {
     NbSidebarModule,
     NbIconModule,
     NbButtonModule,
+    NbUserModule,
+    NbContextMenuModule,
   ],
 })
 

@@ -1,8 +1,13 @@
 <nb-layout>
-  <nb-layout-header>
-    <a (click)="toggle()">
-      <nb-icon icon="menu-outline"></nb-icon>
-    </a>
+  <nb-layout-header class="w-100">
+    <div class="col-6 d-flex align-items-center">
+      <a (click)="toggle()">
+        <nb-icon icon="menu-2-outline"></nb-icon>
+      </a>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+      <nb-user [nbContextMenu]="items" shape="round" name="Almacenes la 14"></nb-user>
+    </div>
   </nb-layout-header>
   <nb-sidebar>
     <nb-menu [items]="menu"></nb-menu>
