@@ -8,7 +8,7 @@ import {
   NbIconModule,
   NbLayoutModule,
   NbMenuModule,
-  NbSidebarModule, NbUserModule
+  NbSidebarModule, NbTooltipModule, NbUserModule
 } from "@nebular/theme";
 
 @NgModule({
@@ -24,6 +24,7 @@ import {
     NbButtonModule,
     NbUserModule,
     NbContextMenuModule,
+    NbTooltipModule,
   ],
 })
 

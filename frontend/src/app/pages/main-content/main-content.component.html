@@ -4,8 +4,10 @@
       <a (click)="toggle()">
         <nb-icon icon="menu-2-outline"></nb-icon>
       </a>
+      <h1 class="ml-4">{{title}}</h1>
     </div>
     <div class="col-6 d-flex justify-content-end">
+      <button class="mr-2" (click)="switchMode()" nbButton ghost status="primary"><nb-icon [icon]="icon"></nb-icon></button>
       <nb-user [nbContextMenu]="items" shape="round" name="Almacenes la 14"></nb-user>
     </div>
   </nb-layout-header>
