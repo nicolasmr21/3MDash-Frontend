@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule} from '@nebular/theme';
+import { NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,10 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbEvaIconsModule,
-    NbLayoutModule
+    NbLayoutModule,
+    NgxEchartsModule.forRoot({
+      echarts,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

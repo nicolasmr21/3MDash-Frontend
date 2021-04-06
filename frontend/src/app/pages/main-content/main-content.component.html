@@ -1,13 +1,13 @@
 <nb-layout>
   <nb-layout-header class="w-100">
     <div class="col-6 d-flex align-items-center">
-      <a (click)="toggle()">
+      <button nbButton ghost (click)="toggle()">
         <nb-icon icon="menu-2-outline"></nb-icon>
-      </a>
+      </button>
       <h1 class="ml-4">{{title}}</h1>
     </div>
     <div class="col-6 d-flex justify-content-end">
-      <button class="mr-2" (click)="switchMode()" nbButton ghost status="primary"><nb-icon [icon]="icon"></nb-icon></button>
+      <button class="mr-3" (click)="switchMode()" shape="round" nbButton ghost status="primary"><nb-icon [icon]="icon"></nb-icon></button>
       <nb-user [nbContextMenu]="items" shape="round" name="Almacenes la 14"></nb-user>
     </div>
   </nb-layout-header>

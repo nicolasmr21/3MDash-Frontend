@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MENU_ITEMS, PROFILE_ITEMS } from "../../utils/items.menu";
-import { NbSidebarService, NbThemeService } from "@nebular/theme";
+import { NbSidebarService } from "@nebular/theme";
 import { APP_NAME } from "../../utils/app.titles";
+import { ThemeService } from "../../services/theme.service";
 
 @Component({
   selector: 'app-main-content',
@@ -17,7 +18,7 @@ export class MainContentComponent {
 
   constructor(
     private sidebarService: NbSidebarService,
-    private themeService: NbThemeService
+    private themeService: ThemeService,
   ) {
     this.icon = 'moon-outline';
   }
@@ -28,7 +29,8 @@ export class MainContentComponent {
   }
 
   switchMode() {
-    if (this.themeService.currentTheme == 'default') {
+    console.log(this.themeService.getTheme())
+    if (this.themeService.getTheme() == 'default') {
       this.themeService.changeTheme('dark');
       this.icon = 'sun-outline';
     } else {
