@@ -122,6 +122,6 @@ export const PROFILE_ITEMS: NbMenuItem[] = [
   {
     title: 'Cerrar sesión',
     icon: 'log-out-outline',
-    link: '/main/logout',
+    link: '/',
   },
 ];
