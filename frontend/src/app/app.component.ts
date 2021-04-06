@@ -18,6 +18,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      this.themeService.changeTheme(savedTheme);
+    }
     this.themeService.updateTheme$()
       .pipe(
         takeUntil(this.destroy$)

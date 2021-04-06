@@ -20,22 +20,15 @@ export class MainContentComponent {
     private sidebarService: NbSidebarService,
     private themeService: ThemeService,
   ) {
-    this.icon = 'moon-outline';
+    this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
   }
 
-  toggle() {
+  toggle(): void {
     this.sidebarService.toggle(true);
-    return false;
   }
 
   switchMode() {
-    console.log(this.themeService.getTheme())
-    if (this.themeService.getTheme() == 'default') {
-      this.themeService.changeTheme('dark');
-      this.icon = 'sun-outline';
-    } else {
-      this.themeService.changeTheme('default');
-      this.icon = 'moon-outline';
-    }
+    this.themeService.switchTheme();
+    this.icon = localStorage.getItem('icon');
   }
 }

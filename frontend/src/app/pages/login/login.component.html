@@ -2,7 +2,7 @@
   <nb-layout-column class="h-100 d-flex">
     <nb-card status="primary" class="m-auto col p-0">
       <nb-card-header class="text-center">
-        <nb-icon icon="log-in-outline"></nb-icon>
+        <button class="mr-3" (click)="switchMode()" shape="round" nbButton ghost status="control"><nb-icon [icon]="icon"></nb-icon></button>
       </nb-card-header>
       <nb-card-body class="p-4">
         <section class="text-center">
@@ -20,7 +20,6 @@
                      id="input-user"
                      placeholder="Usuario"
                      fieldSize="large"
-                     autofocus
               >
               <ng-container *ngIf="form.get('user').invalid && form.get('user').touched">
                 <p class="mt-1 caption status-danger" *ngIf="form.get('user').hasError('required')">

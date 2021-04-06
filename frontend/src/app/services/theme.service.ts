@@ -15,6 +15,18 @@ export class ThemeService {
   ) {
   }
 
+  switchTheme(): void {
+    if (this.getTheme() == 'default') {
+      localStorage.setItem('theme', 'dark');
+      localStorage.setItem('icon', 'sun-outline');
+      this.changeTheme('dark');
+    } else {
+      localStorage.setItem('theme', 'default');
+      localStorage.setItem('icon', 'moon-outline');
+      this.changeTheme('default');
+    }
+  }
+
   changeTheme(newTheme: string): void {
     this.themeService.changeTheme(newTheme);
   }
@@ -27,7 +39,7 @@ export class ThemeService {
     return this.activeTheme.getValue();
   }
 
-  updateTheme$(): Observable<any> {
+  updateTheme$(): Observable<Object> {
     return this.themeService.onThemeChange()
       .pipe(
         tap((theme) => this.activeTheme.next(theme.name)),
