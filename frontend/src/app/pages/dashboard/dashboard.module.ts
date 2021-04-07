@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import {NgxEchartsModule} from "ngx-echarts";
+import {ActiveLineGraphModule} from "../../components/active-line-graph/active-line-graph.module";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {NgxEchartsModule} from "ngx-echarts";
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    ActiveLineGraphModule
   ]
 })
 export class DashboardModule { }
