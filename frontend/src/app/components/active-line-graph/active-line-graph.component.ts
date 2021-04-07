@@ -11,6 +11,8 @@ export class ActiveLineGraphComponent implements OnInit {
   @Input() theme: string;
   options: any;
   loading: boolean;
+  data: string[][];
+  filteredData: string[][];
 
   constructor(
     private csvService: CsvService
@@ -18,43 +20,62 @@ export class ActiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.csvService.getActiveData().then((rawData) => {
-      this.options = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross'
-          }
+    this.csvService.getActiveData()
+      .then((data) => this.data = data)
+      .then(() => this.generateOptions('day'))
+      .finally(() => this.loading = false );
+  }
+
+  generateOptions(period: string) {
+    this.filteredData = this.filterData(period);
+    this.options = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross'
+        }
+      },
+      toolbox: {
+        show: true,
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: this.filteredData.map(value => value[1])
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: '{value} kWh'
         },
-        toolbox: {
-          show: true,
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: rawData.map(value => value[1])
-        },
-        yAxis: {
-          type: 'value',
-          axisLabel: {
-            formatter: '{value} kWh'
-          },
-          axisPointer: {
-            snap: true
-          }
-        },
-        visualMap: {
-          show: false,
-          dimension: 0,
-        },
-        series: [
-          {
-            type: 'line',
-            smooth: true,
-            data: rawData.map(value => parseFloat(value[2])),
-          }
-        ]
-      };
-    }).finally(() => this.loading = false );
+        axisPointer: {
+          snap: true
+        }
+      },
+      visualMap: {
+        show: false,
+        dimension: 0,
+      },
+      series: [
+        {
+          type: 'line',
+          smooth: true,
+          data: this.filteredData.map(value => parseFloat(value[2])),
+        }
+      ]
+    };
+  }
+
+  private filterData(period: string) {
+    switch (period) {
+      case 'day':
+        return  this.data.slice(this.data.length-24);
+      case 'week':
+        return this.data.slice(this.data.length-168);
+      case 'month':
+        return this.data.slice(this.data.length-5000);
+      default:
+        return this.data;
+    }
   }
 }
