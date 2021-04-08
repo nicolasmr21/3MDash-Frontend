@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-period-select',
@@ -7,13 +7,15 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class PeriodSelectComponent implements OnInit {
 
-  selectedItem: string;
+  @Input() defaultPeriod: string;
   @Output() selectedEmitter: EventEmitter<string> = new EventEmitter<string>();
+
+  selectedItem: string;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.selectedItem = 'day';
+    this.selectedItem = this.defaultPeriod || 'day';
   }
 
   onSelectedChange(selected: string) {

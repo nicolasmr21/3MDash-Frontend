@@ -11,7 +11,6 @@ export class DashboardComponent implements OnInit {
 
   options: any;
   theme: string;
-  activeData: string[][];
 
   constructor(
     private themeService: ThemeService,

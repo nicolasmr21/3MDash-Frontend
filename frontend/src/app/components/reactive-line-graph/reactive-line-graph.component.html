@@ -1,12 +1,12 @@
 <nb-card [nbSpinner]="loading" status="primary">
   <nb-card-header class="row m-0">
     <div class="col-8">
-      <h3 class="font-weight-light">Curva de Energía Activa</h3>
+      <h3 class="font-weight-light">Curva de Energía Reactiva</h3>
     </div>
     <div class="col-4 d-flex justify-content-end">
       <app-period-select (selectedEmitter)="generateOptions($event)" [defaultPeriod]="defaultPeriod"></app-period-select>
     </div>
-    </nb-card-header>
+  </nb-card-header>
   <nb-card-body>
     <div echarts [options]="options" [theme]="theme" class="demo-chart"></div>
   </nb-card-body>

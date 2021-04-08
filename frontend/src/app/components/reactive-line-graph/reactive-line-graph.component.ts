@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CsvService} from "../../services/csv.service";
 
 @Component({
-  selector: 'app-active-line-graph',
-  templateUrl: './active-line-graph.component.html',
-  styleUrls: ['./active-line-graph.component.scss']
+  selector: 'app-reactive-line-graph',
+  templateUrl: './reactive-line-graph.component.html',
+  styleUrls: ['./reactive-line-graph.component.scss']
 })
-export class ActiveLineGraphComponent implements OnInit {
+export class ReactiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
@@ -21,7 +21,7 @@ export class ActiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.csvService.getActiveData()
+    this.csvService.getReactiveData()
       .then((data) => this.data = data)
       .then(() => this.generateOptions(this.defaultPeriod || 'day'))
       .finally(() => this.loading = false );
@@ -33,7 +33,7 @@ export class ActiveLineGraphComponent implements OnInit {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'axis',
-        formatter: 'Fecha: {b}  <br/> Consumo {c}kWh',
+        formatter: 'Fecha: {b}  <br/> Consumo {c}kVArh',
         axisPointer: {
           type: 'cross'
         }
@@ -52,7 +52,7 @@ export class ActiveLineGraphComponent implements OnInit {
       yAxis: {
         type: 'value',
         axisLabel: {
-          formatter: '{value}kWh'
+          formatter: '{value}kVArh'
         },
         axisPointer: {
           snap: true
