@@ -68,8 +68,8 @@ export class ActiveLineGraphComponent implements OnInit {
           smooth: true,
           data: this.filteredData.map(value => parseFloat(value[2])),
           lineStyle: {
-            color: 'rgba(52, 103, 255, 1)',
-            width: 3,
+            color: 'rgb(5, 216, 145)',
+            width: 2,
             shadowColor: 'rgba(0,0,0,0.3)',
             shadowBlur: 10,
             shadowOffsetY: 8

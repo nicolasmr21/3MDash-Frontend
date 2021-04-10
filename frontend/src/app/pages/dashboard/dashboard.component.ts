@@ -11,15 +11,18 @@ export class DashboardComponent implements OnInit {
 
   options: any;
   theme: string;
+  loading: boolean;
 
   constructor(
     private themeService: ThemeService,
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.themeService.getTheme$()
       .pipe(
-        tap((theme) => this.theme = theme)
+        tap((theme) => this.theme = theme),
+        tap(() => setTimeout(() => this.loading = false, 1000)),
       )
       .subscribe()
   }

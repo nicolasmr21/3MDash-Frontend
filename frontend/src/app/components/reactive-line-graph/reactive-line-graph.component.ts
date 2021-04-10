@@ -69,7 +69,7 @@ export class ReactiveLineGraphComponent implements OnInit {
           data: this.filteredData.map(value => parseFloat(value[2])),
           lineStyle: {
             color: 'rgba(52, 103, 255, 1)',
-            width: 3,
+            width: 2,
             shadowColor: 'rgba(0,0,0,0.3)',
             shadowBlur: 10,
             shadowOffsetY: 8
