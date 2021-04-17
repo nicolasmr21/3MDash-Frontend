@@ -28,10 +28,11 @@ export class ClockValueGraphComponent implements OnInit {
 
   generateOptions(period: string) {
     this.filteredData = this.filterService.filterDataByPeriod(period, this.data);
+    const max = this.filterService.getMaxValue(this.filteredData);
     this.options = {
       background: 'transparent',
       tooltip: {
-        formatter: '{a} {b} : {c} ' +this.units
+        formatter: '{c} ' +this.units +' en ' +max[1]
       },
       series: [{
         min: 0,
@@ -42,7 +43,7 @@ export class ClockValueGraphComponent implements OnInit {
           formatter: '{value} ' +this.units
         },
         data: [{
-          value: this.filterService.getMaxValue(this.filteredData),
+          value: parseFloat(max[2]),
         }]
       }]
     };

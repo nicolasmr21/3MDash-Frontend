@@ -22,7 +22,8 @@ export class FilterService {
     }
   }
 
-  getMaxValue(data: string[][]): number {
-    return data?.reduce((prev, curr) => prev < parseFloat(curr[2]) ? parseFloat(curr[2]) : prev, 0)
+  getMaxValue(data: string[][]): string[] {
+    const index = data?.reduce((prev, curr, i) => parseFloat(data[prev][2]) < parseFloat(curr[2]) ? i : prev, 0)
+    return data[index];
   }
 }
