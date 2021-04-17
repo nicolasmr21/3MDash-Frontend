@@ -28,7 +28,6 @@ export class ClockValueGraphComponent implements OnInit {
 
   generateOptions(period: string) {
     this.filteredData = this.filterService.filterDataByPeriod(period, this.data);
-    console.log(this.filteredData, this.filterService.getMaxValue(this.filteredData))
     this.options = {
       background: 'transparent',
       tooltip: {
