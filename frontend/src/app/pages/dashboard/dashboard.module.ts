@@ -9,6 +9,7 @@ import {NbLayoutModule, NbSpinnerModule} from "@nebular/theme";
 import {ReactiveLineGraphModule} from "../../components/reactive-line-graph/reactive-line-graph.module";
 import {ActiveReactiveLineGraphModule} from "../../components/active-reactive-line-graph/active-reactive-line-graph.module";
 import {ClockValueGraphModule} from "../../components/clock-value-graph/clock-value-graph.module";
+import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matrix.module";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {ClockValueGraphModule} from "../../components/clock-value-graph/clock-va
     ReactiveLineGraphModule,
     NbSpinnerModule,
     ActiveReactiveLineGraphModule,
-    ClockValueGraphModule
+    ClockValueGraphModule,
+    MeasureMatrixModule
   ]
 })
 export class DashboardModule { }
