@@ -1,7 +1,9 @@
 <div class="row" [nbSpinner]="loading">
-  <app-active-reactive-line-graph class="col-12" [theme]="theme" defaultPeriod="month"></app-active-reactive-line-graph>
-  <app-active-line-graph class="col-12" [theme]="theme" defaultPeriod="month"></app-active-line-graph>
-  <app-active-line-graph class="col-6" [theme]="theme" defaultPeriod="week">></app-active-line-graph>
-  <app-reactive-line-graph class="col-6" [theme]="theme" defaultPeriod="week">></app-reactive-line-graph>
-  <app-reactive-line-graph class="col-12" [theme]="theme" defaultPeriod="month"></app-reactive-line-graph>
+  <app-clock-value-graph *ngIf="activeData" [theme]="theme" measure="Energía activa" units="kWh" [data]="activeData" class="col-6"></app-clock-value-graph>
+  <app-clock-value-graph *ngIf="reactiveData" [theme]="theme" measure="Energía reactiva" units="kVArh" [data]="reactiveData" class="col-6"></app-clock-value-graph>
+  <app-active-reactive-line-graph *ngIf="activeData && reactiveData" class="col-12" [theme]="theme" defaultPeriod="month" [activeData]="activeData" [reactiveData]="reactiveData"></app-active-reactive-line-graph>
+  <app-active-line-graph *ngIf="activeData" class="col-12" [theme]="theme" defaultPeriod="month" [data]="activeData"></app-active-line-graph>
+  <app-active-line-graph *ngIf="activeData" class="col-6" [theme]="theme" defaultPeriod="week" [data]="activeData">></app-active-line-graph>
+  <app-reactive-line-graph *ngIf="reactiveData" class="col-6" [theme]="theme" defaultPeriod="week" [data]="reactiveData"></app-reactive-line-graph>
+  <app-reactive-line-graph *ngIf="reactiveData" class="col-12" [theme]="theme" defaultPeriod="month" [data]="reactiveData"></app-reactive-line-graph>
 </div>

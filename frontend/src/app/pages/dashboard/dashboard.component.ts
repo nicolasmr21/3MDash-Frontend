@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
 import { tap } from "rxjs/operators";
+import {combineLatest} from "rxjs";
+import {fromPromise} from "rxjs/internal-compatibility";
+import {CsvService} from "../../services/csv.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,17 +15,30 @@ export class DashboardComponent implements OnInit {
   options: any;
   theme: string;
   loading: boolean;
+  activeData: string[][];
+  reactiveData: string[][];
 
   constructor(
     private themeService: ThemeService,
+    private csvService: CsvService,
   ) { }
 
   ngOnInit() {
     this.loading = true;
-    this.themeService.getTheme$()
+    combineLatest([
+      this.themeService.getTheme$()
+        .pipe(
+          tap((theme) => this.theme = theme),
+          tap(() => setTimeout(() => this.loading = false, 1000)),
+        ),
+      fromPromise(this.csvService.getActiveData()),
+      fromPromise(this.csvService.getReactiveData())
+    ])
       .pipe(
-        tap((theme) => this.theme = theme),
-        tap(() => setTimeout(() => this.loading = false, 1000)),
+        tap(([a, b, c]) => {
+          this.activeData = b;
+          this.reactiveData = c;
+        }),
       )
       .subscribe()
   }

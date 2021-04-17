@@ -9,6 +9,9 @@ import {NgxEchartsModule} from "ngx-echarts";
 
 @NgModule({
   declarations: [ClockValueGraphComponent],
+  exports: [
+    ClockValueGraphComponent
+  ],
   imports: [
     CommonModule,
     NbSpinnerModule,

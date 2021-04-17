@@ -11,7 +11,7 @@ export class ClockValueGraphComponent implements OnInit {
   @Input() measure: string;
   @Input() defaultPeriod: string;
   @Input() theme: string;
-  @Input() value: number;
+  @Input() units: number;
   @Input() data: string[][];
   filteredData: string[][];
   loading: boolean;
@@ -28,21 +28,25 @@ export class ClockValueGraphComponent implements OnInit {
 
   generateOptions(period: string) {
     this.filteredData = this.filterService.filterDataByPeriod(period, this.data);
+    console.log(this.filteredData, this.filterService.getMaxValue(this.filteredData))
     this.options = {
+      background: 'transparent',
       tooltip: {
-        formatter: '{a} <br/>{b} : {c}%'
+        formatter: '{a} {b} : {c} ' +this.units
       },
       series: [{
+        min: 0,
+        max: 2000,
         name: this.measure,
         type: 'gauge',
         detail: {
-          formatter: '{value}'
+          formatter: '{value} ' +this.units
         },
         data: [{
           value: this.filterService.getMaxValue(this.filteredData),
-          name: 'SCORE'
         }]
       }]
     };
+    this.loading = false;
   }
 }

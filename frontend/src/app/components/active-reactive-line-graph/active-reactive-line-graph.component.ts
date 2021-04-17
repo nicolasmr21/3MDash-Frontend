@@ -14,10 +14,10 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
+  @Input() activeData: string[][];
+  @Input() reactiveData: string[][];
   options: any;
   loading: boolean;
-  activeData: string[][];
-  reactiveData: string[][];
   activeFilteredData: string[][];
   reactiveFilteredData: string[][];
 
@@ -29,19 +29,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    combineLatest([
-      fromPromise(this.csvService.getActiveData()),
-      fromPromise(this.csvService.getReactiveData())
-    ])
-      .pipe(
-        tap(([a, b]) => {
-          this.activeData = a;
-          this.reactiveData = b;
-        }),
-        tap(() => this.generateOptions(this.defaultPeriod || 'day')),
-        tap(() => this.loading = false),
-      )
-      .subscribe()
+    this.generateOptions(this.defaultPeriod || 'day');
   }
 
   generateOptions(period: string) {
@@ -139,6 +127,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
         }
       ]
     };
+    this.loading = false;
   }
 
   private filterData(period: string, data: string[][]) {

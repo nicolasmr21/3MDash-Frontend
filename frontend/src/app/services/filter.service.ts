@@ -23,6 +23,6 @@ export class FilterService {
   }
 
   getMaxValue(data: string[][]): number {
-    return data?.reduce((prev, curr) => prev > parseFloat(curr[2]) ? parseFloat(curr[2]) : prev, 0)
+    return data?.reduce((prev, curr) => prev < parseFloat(curr[2]) ? parseFloat(curr[2]) : prev, 0)
   }
 }

@@ -11,9 +11,9 @@ export class ActiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
+  @Input() data: string[][];
   options: any;
   loading: boolean;
-  data: string[][];
   filteredData: string[][];
 
   constructor(
@@ -23,10 +23,7 @@ export class ActiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.csvService.getActiveData()
-      .then((data) => this.data = data)
-      .then(() => this.generateOptions(this.defaultPeriod || 'day'))
-      .finally(() => this.loading = false );
+    this.generateOptions(this.defaultPeriod || 'day');
   }
 
   generateOptions(period: string) {
@@ -79,6 +76,7 @@ export class ActiveLineGraphComponent implements OnInit {
         }
       ]
     };
+    this.loading = false;
   }
 
   private filterData(period: string) {
