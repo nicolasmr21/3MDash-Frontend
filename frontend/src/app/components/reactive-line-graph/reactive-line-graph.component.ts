@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CsvService} from "../../services/csv.service";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
   selector: 'app-reactive-line-graph',
@@ -16,7 +17,8 @@ export class ReactiveLineGraphComponent implements OnInit {
   filteredData: string[][];
 
   constructor(
-    private csvService: CsvService
+    private csvService: CsvService,
+    private filterService: FilterService,
   ) { }
 
   ngOnInit(): void {
@@ -80,15 +82,6 @@ export class ReactiveLineGraphComponent implements OnInit {
   }
 
   private filterData(period: string) {
-    switch (period) {
-      case 'day':
-        return  this.data.slice(this.data.length-24);
-      case 'week':
-        return this.data.slice(this.data.length-168);
-      case 'month':
-        return this.data.slice(this.data.length-5000);
-      default:
-        return this.data;
-    }
+    return this.filterService.filterDataByPeriod(period, this.data);
   }
 }

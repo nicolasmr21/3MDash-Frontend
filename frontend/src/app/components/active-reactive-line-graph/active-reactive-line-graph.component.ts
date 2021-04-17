@@ -3,6 +3,7 @@ import {CsvService} from "../../services/csv.service";
 import {combineLatest, of} from "rxjs";
 import {fromPromise} from "rxjs/internal-compatibility";
 import {tap} from "rxjs/operators";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
   selector: 'app-active-reactive-line-graph',
@@ -21,7 +22,8 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
   reactiveFilteredData: string[][];
 
   constructor(
-    private csvService: CsvService
+    private csvService: CsvService,
+    private filterService: FilterService,
   ) {
   }
 
@@ -140,15 +142,6 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
   }
 
   private filterData(period: string, data: string[][]) {
-    switch (period) {
-      case 'day':
-        return data.slice(data.length - 24);
-      case 'week':
-        return data.slice(data.length - 168);
-      case 'month':
-        return data.slice(data.length - 5000);
-      default:
-        return data;
-    }
+    return this.filterService.filterDataByPeriod(period, data);
   }
 }
