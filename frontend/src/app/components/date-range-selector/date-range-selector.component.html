@@ -3,12 +3,12 @@
     <label>
       <input nbInput placeholder="Desde" [nbDatepicker]="pickerFrom">
     </label>
-    <nb-datepicker #pickerFrom format="MM\dd\yyyy"></nb-datepicker>
+    <nb-datepicker #pickerFrom [(date)]="dateFrom" (dateChange)="onDateFromChange($event)"></nb-datepicker>
   </div>
   <div class="col-6">
     <label>
       <input nbInput placeholder="Hasta" [nbDatepicker]="pickerTo">
     </label>
-    <nb-datepicker #pickerTo format="MM\dd\yyyy"></nb-datepicker>
+    <nb-datepicker #pickerTo [(date)]="dateTo" (dateChange)="onDateToChange($event)"></nb-datepicker>
   </div>
 </div>

@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~10.1.4",
     "@angular/router": "~10.1.4",
     "@nebular/eva-icons": "^6.2.2",
+    "@nebular/moment": "^7.0.0",
     "@nebular/theme": "^6.2.2",
     "echarts": "^5.0.2",
     "eva-icons": "^1.1.3",

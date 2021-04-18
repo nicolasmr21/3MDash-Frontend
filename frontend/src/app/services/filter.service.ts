@@ -22,6 +22,14 @@ export class FilterService {
     }
   }
 
+  filterDataByDate(data: string[][], dateFrom: Date, dateTo: Date): string[][] {
+    return data
+      .filter((item) => {
+        const date = new Date(item[0]);
+        return date.getTime() <= dateTo.getTime() && date.getTime() >= dateFrom.getTime();
+      })
+  }
+
   getMaxValue(data: string[][]): string[] {
     const index = data?.reduce((prev, curr, i) => parseFloat(data[prev][2]) < parseFloat(curr[2]) ? i : prev, 0)
     return data[index];
