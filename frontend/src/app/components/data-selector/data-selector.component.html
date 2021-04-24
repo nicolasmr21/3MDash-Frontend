@@ -1,0 +1,8 @@
+<div class="row d-flex justify-content-around">
+  <nb-select class="col" placeholder="Seleccione un cliente" [(selected)]="selectedClient">
+    <nb-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</nb-option>
+  </nb-select>
+  <nb-select class="col" placeholder="Seleccione un contrato" [(selected)]="selectedContract">
+    <nb-option *ngFor="let contract of contracts" [value]="contract.id">{{contract.name}}</nb-option>
+  </nb-select>
+</div>
