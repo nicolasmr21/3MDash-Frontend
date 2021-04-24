@@ -11,7 +11,7 @@ const routes: Routes = [
     path: 'main',
     canActivate: [authGuard],
     data: {
-      expectedRol: ['admin', 'user']
+      expectedRol: ['superadmin', 'client-admin', 'contract-admin']
     },
     loadChildren: () => import('./pages/main-content/main-content.module').then(m => m.MainContentModule),
   },

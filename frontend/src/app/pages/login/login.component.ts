@@ -2,7 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { APP_NAME } from "../../utils/app.titles";
-import {ThemeService} from "../../services/theme.service";
+import { ThemeService } from "../../services/theme.service";
+import { UserLogin } from "../../models/user-login";
+import {TokenService} from "../../services/token.service";
+import {AuthService} from "../../services/auth.service";
+import { catchError, tap } from "rxjs/operators";
+import { of } from "rxjs";
+import { JwtDTO } from "../../models/jwt-dto";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: 'app-login',
@@ -14,11 +21,16 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   title = APP_NAME;
   icon: string;
+  userLogin: UserLogin;
+  onLoginError: boolean;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private themeService: ThemeService,
+    private tokenService: TokenService,
+    private authService: AuthService,
+    private toastrService: NbToastrService,
   ) {
   }
 
@@ -31,7 +43,24 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.router.navigateByUrl('main/dashboard');
+    this.onLoginError = false;
+    const { user, password } = this.form.value
+    this.userLogin = new UserLogin(user, password);
+    this.authService.login(this.userLogin)
+      .pipe(
+        tap((response: JwtDTO) => {
+          this.tokenService.setToken(response.token);
+          this.tokenService.setUserName(response.username);
+          this.tokenService.setAuthorities(response.authorities);
+          return this.router.navigate(['/']);
+        }),
+        catchError((err) => {
+          this.onLoginError = true;
+          this.toastrService.show('Error en las credenciales', `Error`, { status: 'danger' });
+          return of(err);
+        })
+      )
+      .subscribe();
   }
 
   switchMode() {

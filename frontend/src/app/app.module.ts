@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbDatepickerModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@nebular/theme';
+import {
+  NbDatepickerModule,
+  NbLayoutModule,
+  NbMenuModule,
+  NbSidebarModule,
+  NbThemeModule,
+  NbToastrModule
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,6 +30,7 @@ import {interceptorProvider} from "./interceptors/request-interceptor.service";
     NbMenuModule.forRoot(),
     NbSidebarModule.forRoot(),
     NbDatepickerModule.forRoot(),
+    NbToastrModule.forRoot(),
     NbEvaIconsModule,
     NbLayoutModule,
     NgxEchartsModule.forRoot({
