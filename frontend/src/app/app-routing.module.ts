@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService as authGuard } from './guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -8,8 +9,13 @@ const routes: Routes = [
   },
   {
     path: 'main',
+    canActivate: [authGuard],
+    data: {
+      expectedRol: ['admin', 'user']
+    },
     loadChildren: () => import('./pages/main-content/main-content.module').then(m => m.MainContentModule),
   },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

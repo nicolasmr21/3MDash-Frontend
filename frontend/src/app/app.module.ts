@@ -8,6 +8,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { HttpClientModule } from '@angular/common/http';
 import * as echarts from 'echarts';
+import {interceptorProvider} from "./interceptors/request-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -28,8 +29,12 @@ import * as echarts from 'echarts';
       echarts,
     }),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    interceptorProvider,
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 
 export class AppModule { }
