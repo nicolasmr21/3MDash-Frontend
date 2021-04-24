@@ -5,15 +5,15 @@ import { AuthGuardService as authGuard } from './guards/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
-  },
-  {
-    path: 'main',
     canActivate: [authGuard],
     data: {
       expectedRol: ['superadmin', 'client-admin', 'contract-admin']
     },
     loadChildren: () => import('./pages/main-content/main-content.module').then(m => m.MainContentModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

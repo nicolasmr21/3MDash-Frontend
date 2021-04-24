@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     private themeService: ThemeService,
     private tokenService: TokenService,
     private authService: AuthService,
-    private toastrService: NbToastrService,
+    private toastService: NbToastrService,
   ) {
   }
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
     this.form = this.formBuilder.group({
       user: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -51,12 +51,12 @@ export class LoginComponent implements OnInit {
         tap((response: JwtDTO) => {
           this.tokenService.setToken(response.token);
           this.tokenService.setUserName(response.username);
-          this.tokenService.setAuthorities(response.authorities);
-          return this.router.navigate(['/']);
+          this.tokenService.setAuthorities(response.authority);
+          return this.router.navigate(['']);
         }),
         catchError((err) => {
           this.onLoginError = true;
-          this.toastrService.show('Error en las credenciales', `Error`, { status: 'danger' });
+          this.toastService.show('Error en las credenciales', APP_NAME, { status: 'danger' });
           return of(err);
         })
       )
