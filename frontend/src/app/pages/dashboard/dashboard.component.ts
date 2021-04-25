@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
-import {filter, tap} from "rxjs/operators";
+import {filter, mergeMap, tap} from "rxjs/operators";
 import { combineLatest } from "rxjs";
 import { fromPromise } from "rxjs/internal-compatibility";
-import {DataSelectorService} from "../../services/data-selector.service";
+import { DataSelectorService } from "../../services/data-selector.service";
+import { ConsumptionService } from 'src/app/services/consumption.service';
+import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
 
 
 @Component({
@@ -16,38 +18,39 @@ export class DashboardComponent implements OnInit {
   options: any;
   theme: string;
   loading: boolean;
-  activeData: string[][];
-  reactiveData: string[][];
+  activeData: ConsumptionUnitDto[];
+  reactiveData: ConsumptionUnitDto[];
 
   constructor(
     private themeService: ThemeService,
     private dataSelectorService: DataSelectorService,
+    private consumptionService: ConsumptionService
   ) { }
 
   ngOnInit() {
     this.loading = true;
-    this.dataSelectorService.getContract$()
-      .pipe(
-        filter((value) => !!value),
-        tap((contract) => console.log(contract)),
-        tap(() => this.loading = false)
-      )
+    combineLatest([
+      this.themeService.getTheme$()
+        .pipe(
+          tap((theme) => this.theme = theme),
+          tap(() => setTimeout(() => this.loading = false, 1000)),
+        ),
+      this.dataSelectorService.getContract$()
+        .pipe(
+          filter((value) => !!value),
+          mergeMap((value) => combineLatest([
+            this.consumptionService.getActiveData(value),
+            this.consumptionService.getReactiveData(value)
+          ])
+            .pipe(
+              tap(([active, reactive]) => {
+                this.activeData = active;
+                this.reactiveData = reactive;
+              })
+            )),
+          tap(() => this.loading = false)
+      ),
+    ])
       .subscribe();
-    // combineLatest([
-    //   this.themeService.getTheme$()
-    //     .pipe(
-    //       tap((theme) => this.theme = theme),
-    //       tap(() => setTimeout(() => this.loading = false, 1000)),
-    //     ),
-    //   fromPromise(this.csvService.getActiveData()),
-    //   fromPromise(this.csvService.getReactiveData())
-    // ])
-    //   .pipe(
-    //     tap(([a, b, c]) => {
-    //       this.activeData = b;
-    //       this.reactiveData = c;
-    //     }),
-    //   )
-    //   .subscribe()
   }
 }
