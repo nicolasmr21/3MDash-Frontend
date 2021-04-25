@@ -1,5 +1,5 @@
 export class ContractDto {
-  id: string;
+  id: number;
   name: string;
   address: string;
   itemCode: string;

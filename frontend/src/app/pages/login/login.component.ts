@@ -6,7 +6,7 @@ import { ThemeService } from "../../services/theme.service";
 import { UserLogin } from "../../models/user-login";
 import {TokenService} from "../../services/token.service";
 import {AuthService} from "../../services/auth.service";
-import { catchError, tap } from "rxjs/operators";
+import {catchError, first, tap} from "rxjs/operators";
 import { of } from "rxjs";
 import { JwtDTO } from "../../models/jwt-dto";
 import { NbToastrService } from "@nebular/theme";
@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
           this.onLoginError = true;
           this.toastService.show('Error en las credenciales', APP_NAME, { status: 'danger' });
           return of(err);
-        })
+        }),
+        first()
       )
       .subscribe();
   }
