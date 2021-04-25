@@ -1,9 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CsvService} from "../../services/csv.service";
-import {combineLatest, of} from "rxjs";
-import {fromPromise} from "rxjs/internal-compatibility";
-import {tap} from "rxjs/operators";
-import {FilterService} from "../../services/filter.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { FilterService } from "../../services/filter.service";
 
 @Component({
   selector: 'app-active-reactive-line-graph',
@@ -22,7 +18,6 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
   reactiveFilteredData: string[][];
 
   constructor(
-    private csvService: CsvService,
     private filterService: FilterService,
   ) {
   }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {CsvService} from "../../services/csv.service";
-import {FilterService} from "../../services/filter.service";
+import { FilterService } from "../../services/filter.service";
 
 @Component({
   selector: 'app-active-line-graph',
@@ -17,7 +16,6 @@ export class ActiveLineGraphComponent implements OnInit {
   filteredData: string[][];
 
   constructor(
-    private csvService: CsvService,
     private filterService: FilterService,
   ) { }
 

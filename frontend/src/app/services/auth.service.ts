@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public login(loginUsuario: UserLogin): Observable<JwtDTO> {
-    return this.httpClient.post<JwtDTO>(AUTH_ENDPOINT + 'login', loginUsuario);
+  public login(userLogin: UserLogin): Observable<JwtDTO> {
+    return this.httpClient.post<JwtDTO>(AUTH_ENDPOINT + 'login', userLogin);
   }
 }
