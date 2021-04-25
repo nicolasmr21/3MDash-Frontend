@@ -1,3 +1,4 @@
+export const GLOBAL_ENDPOINT = 'http://localhost:8080/'
 export const AUTH_ENDPOINT = 'auth/'
 export const CLIENTS_ENDPOINT = 'client/'
 export const CONTRACTS_ENDPOINT = 'contract/'
