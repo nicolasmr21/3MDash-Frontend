@@ -13,13 +13,11 @@ const CONTRACT_KEY = 'SessionContract';
 })
 export class DataSelectorService {
 
-  clientSelected: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   contractSelected: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
     private httpClient: HttpClient
   ) {
-    this.clientSelected.next(this.getClient());
     this.contractSelected.next(this.getContract());
   }
 
@@ -34,7 +32,6 @@ export class DataSelectorService {
   public setClient(client: string): void {
     sessionStorage.removeItem(CLIENT_KEY);
     sessionStorage.setItem(CLIENT_KEY, client);
-    this.clientSelected.next(this.getClient());
   }
 
   public setContract(contract: string): void {
@@ -49,5 +46,9 @@ export class DataSelectorService {
 
   public getContract(): string {
     return sessionStorage.getItem(CONTRACT_KEY);
+  }
+
+  public getContract$(): Observable<string> {
+    return this.contractSelected.asObservable();
   }
 }

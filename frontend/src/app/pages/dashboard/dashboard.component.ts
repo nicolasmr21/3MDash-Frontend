@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
-import { tap } from "rxjs/operators";
+import {filter, tap} from "rxjs/operators";
 import { combineLatest } from "rxjs";
 import { fromPromise } from "rxjs/internal-compatibility";
+import {DataSelectorService} from "../../services/data-selector.service";
 
 
 @Component({
@@ -20,10 +21,18 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private themeService: ThemeService,
+    private dataSelectorService: DataSelectorService,
   ) { }
 
   ngOnInit() {
     this.loading = true;
+    this.dataSelectorService.getContract$()
+      .pipe(
+        filter((value) => !!value),
+        tap((contract) => console.log(contract)),
+        tap(() => this.loading = false)
+      )
+      .subscribe();
     // combineLatest([
     //   this.themeService.getTheme$()
     //     .pipe(
