@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterService } from "../../services/filter.service";
+import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
 
 @Component({
   selector: 'app-active-reactive-line-graph',
@@ -10,12 +11,12 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
-  @Input() activeData: string[][];
-  @Input() reactiveData: string[][];
+  @Input() activeData: ConsumptionUnitDto[];
+  @Input() reactiveData: ConsumptionUnitDto[];
   options: any;
   loading: boolean;
-  activeFilteredData: string[][];
-  reactiveFilteredData: string[][];
+  activeFilteredData: ConsumptionUnitDto[];
+  reactiveFilteredData: ConsumptionUnitDto[];
 
   constructor(
     private filterService: FilterService,
@@ -92,7 +93,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
               }
             }
           },
-          data: this.activeFilteredData.map((item) => item[1])
+          data: this.activeFilteredData.map((item) => item.dateConsumption)
         }
       ],
       yAxis: [
@@ -108,7 +109,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
           emphasis: {
             focus: 'series'
           },
-          data: this.reactiveFilteredData.map((value) => parseFloat(value[2]))
+          data: this.reactiveFilteredData.map((value) => value.consumptionUnits)
         },
         {
           name: 'Energía Activa',
@@ -118,14 +119,14 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
           emphasis: {
             focus: 'series'
           },
-          data: this.activeFilteredData.map((value) => parseFloat(value[2]))
+          data: this.activeFilteredData.map((value) => value.consumptionUnits)
         }
       ]
     };
     this.loading = false;
   }
 
-  private filterData(period: string, data: string[][]) {
+  private filterData(period: string, data: ConsumptionUnitDto[]) {
     return this.filterService.filterDataByPeriod(period, data);
   }
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MATRIX_HEADERS } from "../../utils/app.titles";
 import {map} from "rxjs/operators";
 import {FilterService} from "../../services/filter.service";
+import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
 
 @Component({
   selector: 'app-measure-matrix',
@@ -14,7 +15,7 @@ export class MeasureMatrixComponent implements OnInit {
   @Input() defaultPeriod: string;
   @Input() theme: string;
   @Input() units: number;
-  @Input() data: string[][];
+  @Input() data: ConsumptionUnitDto[];
   headers = MATRIX_HEADERS;
   filteredData: string[][];
   loading: boolean;
@@ -29,11 +30,11 @@ export class MeasureMatrixComponent implements OnInit {
     this.filteredData.pop();
   }
 
-  private groupDataByDate(items: string[][]): string[][] {
+  private groupDataByDate(items: ConsumptionUnitDto[]): string[][] {
     const dic = new Map<string, string[]>();
     items.forEach((item) => {
-      const key = item[1]?.substring(0, 10);
-      dic.set(key, [...dic.get(key) || [], item[2]]);
+      const key = item.dateConsumption?.substring(0, 10);
+      dic.set(key, [...dic.get(key) || [], item.consumptionUnits.toString()]);
     });
     const mapEntries = Array.from(dic.entries());
     return [...mapEntries.map((entry) => [entry[0], ...entry[1]])];

@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
               tap(([active, reactive]) => {
                 this.activeData = active;
                 this.reactiveData = reactive;
+                console.log(active, reactive)
               })
             )),
           tap(() => this.loading = false)

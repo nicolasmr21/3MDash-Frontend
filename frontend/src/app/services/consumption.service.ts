@@ -11,11 +11,23 @@ export class ConsumptionService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getActiveData(contractId): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filteractive?contractId=${contractId}`);
+  public getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
+    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filteractive`, {
+      params: {
+        contractid: contractId,
+        start: start ? start.toLocaleString() : '2020/01/01',
+        end: end ? end.toLocaleString() : '2020/12/30',
+      }
+    });
   }
 
-  public getReactiveData(contractId): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filterreactive?contractId=${contractId}`);
+  public getReactiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
+    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filterreactive`, {
+      params: {
+        contractid: contractId,
+        start: start ? start.toLocaleString() : '2020/01/01',
+        end: end ? end.toLocaleString() : '2020/12/30',
+      }
+    });
   }
 }

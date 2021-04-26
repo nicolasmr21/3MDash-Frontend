@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {ConsumptionUnitDto} from "../models/consumption-unit-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class FilterService {
   ) {
   }
 
-  filterDataByPeriod(period: string, data: string[][]): string[][] {
+  filterDataByPeriod(period: string, data: ConsumptionUnitDto[]): ConsumptionUnitDto[] {
     switch (period) {
       case 'day':
         return  data?.slice(data.length-24);
@@ -30,8 +31,8 @@ export class FilterService {
       })
   }
 
-  getMaxValue(data: string[][]): string[] {
-    const index = data?.reduce((prev, curr, i) => parseFloat(data[prev][2]) < parseFloat(curr[2]) ? i : prev, 0)
+  getMaxValue(data: ConsumptionUnitDto[]): ConsumptionUnitDto {
+    const index = data?.reduce((prev, curr, i) => data[prev].consumptionUnits < curr.consumptionUnits ? i : prev, 0)
     return data[index];
   }
 }

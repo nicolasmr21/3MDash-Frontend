@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FilterService} from "../../services/filter.service";
+import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
 
 @Component({
   selector: 'app-clock-value-graph',
@@ -12,8 +13,8 @@ export class ClockValueGraphComponent implements OnInit {
   @Input() defaultPeriod: string;
   @Input() theme: string;
   @Input() units: number;
-  @Input() data: string[][];
-  filteredData: string[][];
+  @Input() data: ConsumptionUnitDto[];
+  filteredData: ConsumptionUnitDto[];
   loading: boolean;
   options: any;
 
@@ -32,7 +33,7 @@ export class ClockValueGraphComponent implements OnInit {
     this.options = {
       background: 'transparent',
       tooltip: {
-        formatter: '{c} ' +this.units +' en ' +max[1]
+        formatter: '{c} ' +this.units +' en ' +max.dateConsumption
       },
       series: [{
         min: 0,
@@ -43,7 +44,7 @@ export class ClockValueGraphComponent implements OnInit {
           formatter: '{value} ' +this.units
         },
         data: [{
-          value: parseFloat(max[2]),
+          value: max.consumptionUnits,
         }]
       }]
     };

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterService } from "../../services/filter.service";
+import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
 
 @Component({
   selector: 'app-active-line-graph',
@@ -10,10 +11,10 @@ export class ActiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
-  @Input() data: string[][];
+  @Input() data: ConsumptionUnitDto[];
   options: any;
   loading: boolean;
-  filteredData: string[][];
+  filteredData: ConsumptionUnitDto[];
 
   constructor(
     private filterService: FilterService,
@@ -44,7 +45,7 @@ export class ActiveLineGraphComponent implements OnInit {
           formatter: '',
         },
         boundaryGap: true,
-        data: this.filteredData.map(value => value[1])
+        data: this.filteredData.map(value => value.dateConsumption)
       },
       yAxis: {
         type: 'value',
@@ -63,7 +64,7 @@ export class ActiveLineGraphComponent implements OnInit {
         {
           type: 'line',
           smooth: true,
-          data: this.filteredData.map(value => parseFloat(value[2])),
+          data: this.filteredData.map(value => value.consumptionUnits),
           lineStyle: {
             color: 'rgb(5, 216, 145)',
             width: 2,
