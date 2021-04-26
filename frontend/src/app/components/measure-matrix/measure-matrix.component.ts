@@ -24,6 +24,7 @@ export class MeasureMatrixComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.data[this.data.length-1][0] = 'TOTAL';
     this.filteredData = this.data;
   }
 
