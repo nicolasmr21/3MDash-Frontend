@@ -33,6 +33,6 @@ export class FilterService {
 
   getMaxValue(data: ConsumptionUnitDto[]): ConsumptionUnitDto {
     const index = data?.reduce((prev, curr, i) => data[prev].consumptionUnits < curr.consumptionUnits ? i : prev, 0)
-    return data[index];
+    return data[index] ? data[index] : { consumptionUnits: 0, dateConsumption: ''};
   }
 }

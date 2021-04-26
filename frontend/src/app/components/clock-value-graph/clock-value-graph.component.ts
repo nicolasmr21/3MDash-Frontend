@@ -33,7 +33,7 @@ export class ClockValueGraphComponent implements OnInit {
     this.options = {
       background: 'transparent',
       tooltip: {
-        formatter: '{c} ' +this.units +' en ' +max.dateConsumption
+        formatter: '{c} ' +this.units +' en ' +max?.dateConsumption
       },
       series: [{
         min: 0,
@@ -44,7 +44,7 @@ export class ClockValueGraphComponent implements OnInit {
           formatter: '{value} ' +this.units
         },
         data: [{
-          value: max.consumptionUnits,
+          value: max?.consumptionUnits,
         }]
       }]
     };

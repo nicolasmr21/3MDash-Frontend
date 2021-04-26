@@ -9,14 +9,24 @@ import { ConsumptionUnitDto } from "../models/consumption-unit-dto";
 })
 export class ConsumptionService {
 
-  constructor(private httpClient: HttpClient) { }
+  firstDateOfMonth: Date;
+  lastDateOfMonth: Date;
+
+  constructor(private httpClient: HttpClient) {
+    const date = new Date();
+    // for final version
+    // this.firstDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    // this.lastDateOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    this.firstDateOfMonth = new Date(2020, 2, 1);
+    this.lastDateOfMonth = new Date(2020, 2, 30);
+  }
 
   public getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
     return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filteractive`, {
       params: {
         contractid: contractId,
-        start: start ? start.toLocaleString() : '2020/01/01',
-        end: end ? end.toLocaleString() : '2020/12/30',
+        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
+        end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
     });
   }
@@ -25,8 +35,28 @@ export class ConsumptionService {
     return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filterreactive`, {
       params: {
         contractid: contractId,
-        start: start ? start.toLocaleString() : '2020/01/01',
-        end: end ? end.toLocaleString() : '2020/12/30',
+        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
+        end: end ? end.toISOString().split('T')[0] :  this.lastDateOfMonth.toISOString().split('T')[0],
+      }
+    });
+  }
+
+  public getActiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
+    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `getmatrixactive`, {
+      params: {
+        contractid: contractId,
+        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
+        end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
+      }
+    });
+  }
+
+  public getReactiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
+    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `getmatrixreactive`, {
+      params: {
+        contractid: contractId,
+        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
+        end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
     });
   }
