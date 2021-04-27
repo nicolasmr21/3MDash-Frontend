@@ -11,11 +11,11 @@
     <table class="table table-bordered">
       <thead>
       <tr>
-        <th scope="col" *ngFor="let item of headers">{{item}}</th>
+        <th class="text-center" scope="col" *ngFor="let item of headers">{{item}}</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let row of filteredData">
+      <tr class="text-center" *ngFor="let row of filteredData">
         <td *ngFor="let col of row">{{col}}</td>
       </tr>
       </tbody>
