@@ -22,9 +22,9 @@ export class ConsumptionService {
   }
 
   public getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filteractive`, {
+    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `active/filter`, {
       params: {
-        contractid: contractId,
+        contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
@@ -32,9 +32,9 @@ export class ConsumptionService {
   }
 
   public getReactiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `filterreactive`, {
+    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `reactive/filter`, {
       params: {
-        contractid: contractId,
+        contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] :  this.lastDateOfMonth.toISOString().split('T')[0],
       }
@@ -42,9 +42,9 @@ export class ConsumptionService {
   }
 
   public getActiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
-    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `getmatrixactive`, {
+    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `active/matrix/get`, {
       params: {
-        contractid: contractId,
+        contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
@@ -52,9 +52,9 @@ export class ConsumptionService {
   }
 
   public getReactiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
-    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `getmatrixreactive`, {
+    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `reactive/matrix/get`, {
       params: {
-        contractid: contractId,
+        contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }

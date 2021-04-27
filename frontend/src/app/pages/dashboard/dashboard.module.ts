@@ -5,7 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import {NgxEchartsModule} from "ngx-echarts";
 import {ActiveLineGraphModule} from "../../components/active-line-graph/active-line-graph.module";
-import {NbLayoutModule, NbSpinnerModule} from "@nebular/theme";
+import {NbCardModule, NbLayoutModule, NbSpinnerModule} from "@nebular/theme";
 import {ReactiveLineGraphModule} from "../../components/reactive-line-graph/reactive-line-graph.module";
 import {ActiveReactiveLineGraphModule} from "../../components/active-reactive-line-graph/active-reactive-line-graph.module";
 import {ClockValueGraphModule} from "../../components/clock-value-graph/clock-value-graph.module";
@@ -24,7 +24,8 @@ import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matri
     NbSpinnerModule,
     ActiveReactiveLineGraphModule,
     ClockValueGraphModule,
-    MeasureMatrixModule
+    MeasureMatrixModule,
+    NbCardModule
   ]
 })
 export class DashboardModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
 import { filter, mergeMap, tap } from "rxjs/operators";
 import { combineLatest } from "rxjs";
@@ -12,7 +12,7 @@ import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   options: any;
   theme: string;
@@ -26,6 +26,12 @@ export class DashboardComponent implements OnInit {
     private dataSelectorService: DataSelectorService,
     private consumptionService: ConsumptionService
   ) { }
+
+  ngOnDestroy(): void {
+   this.activeMatrix = null;
+   this.activeData = null;
+   this.reactiveData = null;
+  }
 
   ngOnInit() {
     this.loading = true;

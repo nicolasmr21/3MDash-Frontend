@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { APP_NAME } from "../../utils/app.titles";
 import { ThemeService } from "../../services/theme.service";
 import { TokenService } from "../../services/token.service";
+import {DataSelectorService} from "../../services/data-selector.service";
 
 @Component({
   selector: 'app-login',
@@ -18,12 +19,16 @@ export class LogoutComponent implements OnInit {
     private router: Router,
     private themeService: ThemeService,
     private tokenService: TokenService,
+    private dataSelectorService: DataSelectorService,
+
   ) {
   }
 
   ngOnInit(): void {
     this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
     this.tokenService.logOut();
+    this.dataSelectorService.setContract(null);
+    this.dataSelectorService.setClient(null);
   }
 
   switchMode() {
