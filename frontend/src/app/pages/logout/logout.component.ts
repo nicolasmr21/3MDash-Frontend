@@ -27,8 +27,7 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
     this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
     this.tokenService.logOut();
-    this.dataSelectorService.setContract(null);
-    this.dataSelectorService.setClient(null);
+    this.dataSelectorService.contractSelected.next(null);
   }
 
   switchMode() {

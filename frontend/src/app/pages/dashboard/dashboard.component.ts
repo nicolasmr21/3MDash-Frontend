@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
-import { filter, mergeMap, tap } from "rxjs/operators";
+import {filter, mergeMap, switchMap, tap} from "rxjs/operators";
 import {BehaviorSubject, combineLatest} from "rxjs";
 import { DataSelectorService } from "../../services/data-selector.service";
 import { ConsumptionService } from 'src/app/services/consumption.service';
@@ -12,7 +12,7 @@ import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
 
   options: any;
   theme: string;
@@ -27,12 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private consumptionService: ConsumptionService
   ) { }
 
-  ngOnDestroy(): void {
-   this.activeMatrix = null;
-   this.activeData = null;
-   this.reactiveData = null;
-  }
-
   ngOnInit() {
     this.loading = true;
     combineLatest([
@@ -43,12 +37,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.dataSelectorService.getContract$()
         .pipe(
           filter((value) => !!value),
-          tap(() => {
-            this.activeData.next(null);
-            this.reactiveData.next(null);
-            this.activeMatrix.next(null);
-          }),
-          mergeMap((value) => combineLatest([
+          tap(() => this.loading = true),
+          switchMap((value) => combineLatest([
             this.consumptionService.getActiveData(value),
             this.consumptionService.getReactiveData(value),
             this.consumptionService.getActiveMatrix(value),
