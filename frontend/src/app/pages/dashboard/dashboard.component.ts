@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
 import { filter, mergeMap, tap } from "rxjs/operators";
-import { combineLatest } from "rxjs";
+import {BehaviorSubject, combineLatest} from "rxjs";
 import { DataSelectorService } from "../../services/data-selector.service";
 import { ConsumptionService } from 'src/app/services/consumption.service';
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
@@ -17,9 +17,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   options: any;
   theme: string;
   loading: boolean;
-  activeData: ConsumptionUnitDto[];
-  reactiveData: ConsumptionUnitDto[];
-  activeMatrix: string[][];
+  activeData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  reactiveData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  activeMatrix: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>(null);
 
   constructor(
     private themeService: ThemeService,
@@ -43,6 +43,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.dataSelectorService.getContract$()
         .pipe(
           filter((value) => !!value),
+          tap(() => {
+            this.activeData.next(null);
+            this.reactiveData.next(null);
+            this.activeMatrix.next(null);
+          }),
           mergeMap((value) => combineLatest([
             this.consumptionService.getActiveData(value),
             this.consumptionService.getReactiveData(value),
@@ -50,9 +55,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           ])
             .pipe(
               tap(([active, reactive, activeMatrix]) => {
-                this.activeData = active;
-                this.reactiveData = reactive;
-                this.activeMatrix = activeMatrix;
+                this.activeData.next(active);
+                this.reactiveData.next(reactive);
+                this.activeMatrix.next(activeMatrix);
               })
             )),
           tap(() => this.loading = false)

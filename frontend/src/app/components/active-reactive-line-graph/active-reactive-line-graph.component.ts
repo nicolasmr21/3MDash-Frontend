@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterService } from "../../services/filter.service";
 import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
+import {combineLatest, Observable} from "rxjs";
+import {filter, switchMap, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-active-reactive-line-graph',
@@ -11,6 +13,8 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
+  @Input() activeData$: Observable<ConsumptionUnitDto[]>;
+  @Input() reactiveData$: Observable<ConsumptionUnitDto[]>;
   @Input() activeData: ConsumptionUnitDto[];
   @Input() reactiveData: ConsumptionUnitDto[];
   options: any;
@@ -25,7 +29,16 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.generateOptions(this.defaultPeriod || 'day');
+    this.activeData$
+      .pipe(
+        filter((data) => !!data),
+        tap((data) => this.activeData = data),
+        switchMap(() => this.reactiveData$),
+        filter((data) => !!data),
+        tap((data) => this.reactiveData = data),
+        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+      )
+      .subscribe();
   }
 
   generateOptions(period: string) {

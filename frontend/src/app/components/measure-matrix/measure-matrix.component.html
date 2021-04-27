@@ -8,7 +8,7 @@
     </div>
   </nb-card-header>
   <nb-card-body class="p-4">
-    <table class="table table-bordered">
+    <table class="table table-bordered" *ngIf="data">
       <thead>
       <tr>
         <th class="text-center" scope="col" *ngFor="let item of headers">{{item}}</th>

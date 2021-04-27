@@ -55,6 +55,5 @@ export class DataSelectorComponent implements OnInit {
 
   onContractSelected(contractId: string) {
     this.dataSelectorService.setContract(contractId);
-    window.location.reload();
   }
 }

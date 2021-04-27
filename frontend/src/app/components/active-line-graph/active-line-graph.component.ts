@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterService } from "../../services/filter.service";
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
+import {BehaviorSubject, Observable} from "rxjs";
+import {filter, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-active-line-graph',
@@ -11,9 +13,10 @@ export class ActiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
-  @Input() data: ConsumptionUnitDto[];
+  @Input() data$: Observable<ConsumptionUnitDto[]>;
   options: any;
   loading: boolean;
+  data: ConsumptionUnitDto[];
   filteredData: ConsumptionUnitDto[];
 
   constructor(
@@ -22,7 +25,13 @@ export class ActiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.generateOptions(this.defaultPeriod || 'day');
+    this.data$
+      .pipe(
+        filter((data) => !!data),
+        tap((data) => this.data = data),
+        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+      )
+      .subscribe();
   }
 
   generateOptions(period: string) {

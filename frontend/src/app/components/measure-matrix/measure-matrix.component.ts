@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MATRIX_HEADERS } from "../../utils/app.titles";
 import { FilterService } from "../../services/filter.service";
+import {Observable} from "rxjs";
+import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
+import {filter, tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-measure-matrix',
@@ -13,6 +16,7 @@ export class MeasureMatrixComponent implements OnInit {
   @Input() defaultPeriod: string;
   @Input() theme: string;
   @Input() units: number;
+  @Input() data$: Observable<string[][]>;
   @Input() data: string[][];
   headers = MATRIX_HEADERS;
   filteredData: string[][];
@@ -24,11 +28,21 @@ export class MeasureMatrixComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data[this.data.length-1][0] = 'TOTAL';
-    this.filteredData = this.data;
+    this.loading = true;
+    this.data$
+      .pipe(
+        filter((data) => !!data),
+        tap((data) => {
+          this.data = data;
+          this.data[this.data.length-1][0] = 'TOTAL';
+          this.filteredData = this.data;
+          this.loading = false;
+        }),
+      )
+      .subscribe();
   }
 
   onDateChange(dates: Date[]) {
-    this.filteredData = this.filterService.filterDataByDate(this.filteredData, dates[0], dates[1]);
+    this.filteredData = this.filterService.filterDataByDate(this.data, dates[0], dates[1]);
   }
 }
