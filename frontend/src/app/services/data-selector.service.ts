@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CLIENTS_ENDPOINT, CONTRACTS_ENDPOINT } from "../utils/app.endpoints";
 import { ClientDto } from "../models/client-dto";
-import {BehaviorSubject, Observable} from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { ContractDto } from "../models/contract-dto";
 
 const CLIENT_KEY = 'SessionClient';
@@ -16,7 +16,7 @@ export class DataSelectorService {
   contractSelected: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) {
     this.contractSelected.next(this.getContract());
   }
