@@ -4,13 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Inicio',
     icon: 'home-outline',
-    link: '/main/dashboard',
-    home: true,
-  },
-  {
-    title: 'Configuración',
-    icon: 'settings-2-outline',
-    link: '/main/settings',
+    link: '/dashboard',
     home: true,
   },
   {
@@ -23,11 +17,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/active/matrix',
+        link: '/active/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/active/graphs',
+        link: '/active/graphs',
       },
     ],
   },
@@ -37,11 +31,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/reactive/matrix',
+        link: '/reactive/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/reactive/matrix',
+        link: '/reactive/matrix',
       },
     ],
   },
@@ -51,11 +45,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/power/matrix',
+        link: '/power/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/power/graphs',
+        link: '/power/graphs',
       },
     ],
   },
@@ -65,11 +59,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/excess/matrix',
+        link: '/excess/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/excess/graphs',
+        link: '/excess/graphs',
       },
     ],
   },
@@ -79,7 +73,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Gráficos',
-        link: '/main/prices/graphs',
+        link: '/prices/graphs',
       },
     ],
   },
@@ -89,11 +83,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/inductive/matrix',
+        link: '/inductive/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/inductive/graphs',
+        link: '/inductive/graphs',
       },
     ],
   },
@@ -103,22 +97,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Matriz',
-        link: '/main/capacitive/matrix',
+        link: '/capacitive/matrix',
       },
       {
         title: 'Gráficos',
-        link: '/main/capacitive/graphs',
+        link: '/capacitive/graphs',
       },
     ],
   },
 ];
 
 export const PROFILE_ITEMS: NbMenuItem[] = [
-  {
-    title: 'Configuración',
-    icon: 'settings-2-outline',
-    link: '/main/settings',
-  },
   {
     title: 'Cerrar sesión',
     icon: 'log-out-outline',

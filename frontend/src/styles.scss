@@ -5,3 +5,7 @@
 @include nb-install() {
   @include nb-theme-global();
 };
+
+nb-spinner {
+  z-index: 1 !important;
+}
