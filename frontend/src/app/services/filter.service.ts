@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ConsumptionUnitDto} from "../models/consumption-unit-dto";
+import { ConsumptionUnitDto } from "../models/consumption-unit-dto";
 
 @Injectable({
   providedIn: 'root'

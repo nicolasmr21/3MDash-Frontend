@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {NbThemeService} from "@nebular/theme";
-import {BehaviorSubject, from, Observable, of, Subject} from "rxjs";
-import {tap} from "rxjs/operators";
+import { NbThemeService } from "@nebular/theme";
+import { BehaviorSubject, from, Observable, of, Subject } from "rxjs";
+import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
