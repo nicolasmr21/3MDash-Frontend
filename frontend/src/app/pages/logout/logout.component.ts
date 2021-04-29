@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { APP_NAME } from "../../utils/app.titles";
 import { ThemeService } from "../../services/theme.service";
-import { TokenService } from "../../services/token.service";
-import {DataSelectorService} from "../../services/data-selector.service";
+import { DataSelectorService } from "../../services/data-selector.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -18,15 +18,14 @@ export class LogoutComponent implements OnInit {
   constructor(
     private router: Router,
     private themeService: ThemeService,
-    private tokenService: TokenService,
     private dataSelectorService: DataSelectorService,
-
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
     this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
-    this.tokenService.logOut();
+    this.authService.logOut();
     this.dataSelectorService.contractSelected.next(null);
   }
 

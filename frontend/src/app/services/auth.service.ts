@@ -15,4 +15,8 @@ export class AuthService {
   public login(userLogin: UserLogin): Observable<JwtDTO> {
     return this.httpClient.post<JwtDTO>(AUTH_ENDPOINT + 'login', userLogin);
   }
+
+  public logOut(): void {
+    window.sessionStorage.clear();
+  }
 }
