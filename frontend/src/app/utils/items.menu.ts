@@ -14,96 +14,37 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Energía activa',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/active/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/active/graphs',
-      },
-    ],
+    link: '/active',
   },
   {
     title: 'Energía Reactiva',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/reactive/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/reactive/matrix',
-      },
-    ],
+    link: '/reactive',
   },
   {
     title: 'Factor de potencia',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/power/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/power/graphs',
-      },
-    ],
+    link: '/power-factor',
   },
   {
     title: 'Exceso de reactivos',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/excess/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/excess/graphs',
-      },
-    ],
+    link: '/excess',
   },
   {
     title: 'Precios de bolsa',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Gráficos',
-        link: '/prices/graphs',
-      },
-    ],
+    link: '/prices',
   },
   {
     title: 'Energía Inductiva',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/inductive/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/inductive/graphs',
-      },
-    ],
+    link: '/inductive',
   },
   {
     title: 'Energía Capacitiva',
     icon: 'activity-outline',
-    children: [
-      {
-        title: 'Matriz',
-        link: '/capacitive/matrix',
-      },
-      {
-        title: 'Gráficos',
-        link: '/capacitive/graphs',
-      },
-    ],
+    link: '/capacitive',
   },
 ];
 
