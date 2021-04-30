@@ -1,5 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConsumptionService} from "../../services/consumption.service";
+import {DataSelectorService} from "../../services/data-selector.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-date-range-selector',
@@ -14,18 +16,27 @@ export class DateRangeSelectorComponent implements OnInit {
 
   constructor(
     private consumptionService: ConsumptionService,
+    private dataSelectorService: DataSelectorService,
   ) { }
 
   ngOnInit(): void {
+    this.dataSelectorService.getContract$()
+      .pipe(
+        tap(() => this.generateDefaultDates())
+      )
+      .subscribe()
+  }
+
+  generateDefaultDates(): void {
     this.dateFrom = this.consumptionService.firstDateOfMonth;
     this.dateTo = this.consumptionService.lastDateOfMonth;
   }
 
-  onDateToChange(newDate: Date) {
+  onDateToChange(newDate: Date): void {
     this.dateEmitter.emit([this.dateFrom, newDate]);
   }
 
-  onDateFromChange(newDate: Date) {
+  onDateFromChange(newDate: Date): void {
     this.dateEmitter.emit([newDate, this.dateTo]);
   }
 }
