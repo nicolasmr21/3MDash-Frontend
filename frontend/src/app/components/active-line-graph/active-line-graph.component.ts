@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { FilterService } from "../../services/filter.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
-import {BehaviorSubject, Observable} from "rxjs";
-import {filter, tap} from "rxjs/operators";
+import { Observable } from "rxjs";
+import { filter, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-active-line-graph',

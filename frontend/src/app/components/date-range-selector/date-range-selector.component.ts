@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConsumptionService} from "../../services/consumption.service";
 import {DataSelectorService} from "../../services/data-selector.service";
 import {tap} from "rxjs/operators";
+import {NbToastrService} from "@nebular/theme";
+import {APP_NAME} from "../../utils/app.titles";
 
 @Component({
   selector: 'app-date-range-selector',
@@ -17,6 +19,7 @@ export class DateRangeSelectorComponent implements OnInit {
   constructor(
     private consumptionService: ConsumptionService,
     private dataSelectorService: DataSelectorService,
+    private toastService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
