@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataSelectorComponent } from './data-selector.component';
-import {NbSelectModule} from "@nebular/theme";
+import {NbSelectModule, NbTooltipModule} from "@nebular/theme";
 
 
 
@@ -12,7 +12,8 @@ import {NbSelectModule} from "@nebular/theme";
   ],
   imports: [
     CommonModule,
-    NbSelectModule
+    NbSelectModule,
+    NbTooltipModule
   ]
 })
 export class DataSelectorModule { }

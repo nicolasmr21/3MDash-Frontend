@@ -5,7 +5,7 @@ import { APP_NAME } from "../../utils/app.titles";
 import { ThemeService } from "../../services/theme.service";
 import { TokenService } from "../../services/token.service";
 import { Router } from "@angular/router";
-import {DataSelectorService} from "../../services/data-selector.service";
+import { DataSelectorService } from "../../services/data-selector.service";
 
 @Component({
   selector: 'app-main-content',

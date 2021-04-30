@@ -1,11 +1,11 @@
 <div class="row d-flex justify-content-around">
   <ng-container *ngIf="roles.includes('superadmin')">
-    <nb-select  class="col" placeholder="Seleccione un cliente" [(selected)]="selectedClient" (selectedChange)="onClientSelected($event)">
+    <nb-select nbTooltip="Cliente"  class="col" placeholder="Seleccione un cliente" [(selected)]="selectedClient" (selectedChange)="onClientSelected($event)">
       <nb-option *ngFor="let client of clients" [value]="client.id.toString()">{{client.name}}</nb-option>
     </nb-select>
   </ng-container>
   <ng-container *ngIf="roles.includes('superadmin') || roles.includes('client-admin')" >
-    <nb-select class="col" placeholder="Seleccione un contrato" [(selected)]="selectedContract" [disabled]="(!selectedClient && roles.includes('superadmin')) || !contracts" (selectedChange)="onContractSelected($event)">
+    <nb-select nbTooltip="Contrato" class="col" placeholder="Seleccione un contrato" [(selected)]="selectedContract" [disabled]="(!selectedClient && roles.includes('superadmin')) || !contracts" (selectedChange)="onContractSelected($event)">
       <nb-option *ngFor="let contract of contracts" [value]="contract.id.toString()">{{contract.name}}</nb-option>
     </nb-select>
   </ng-container>
