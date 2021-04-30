@@ -5,8 +5,6 @@ import { BehaviorSubject, combineLatest } from "rxjs";
 import { DataSelectorService } from "../../services/data-selector.service";
 import { ConsumptionService } from 'src/app/services/consumption.service';
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
-import { NbToastrService } from "@nebular/theme";
-import { APP_NAME } from "../../utils/app.titles";
 
 
 @Component({
@@ -16,18 +14,15 @@ import { APP_NAME } from "../../utils/app.titles";
 })
 export class DashboardComponent implements OnInit {
 
-  options: any;
   theme: string;
   loading: boolean;
   activeData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
   reactiveData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
-  activeMatrix: BehaviorSubject<string[][]> = new BehaviorSubject<string[][]>(null);
 
   constructor(
     private themeService: ThemeService,
     private dataSelectorService: DataSelectorService,
     private consumptionService: ConsumptionService,
-    private toastService: NbToastrService,
   ) { }
 
   ngOnInit() {
@@ -48,13 +43,11 @@ export class DashboardComponent implements OnInit {
           switchMap((value) => combineLatest([
             this.consumptionService.getActiveData(value),
             this.consumptionService.getReactiveData(value),
-            this.consumptionService.getActiveMatrix(value),
           ])
             .pipe(
-              tap(([active, reactive, activeMatrix]) => {
+              tap(([active, reactive]) => {
                 this.activeData.next(active);
                 this.reactiveData.next(reactive);
-                this.activeMatrix.next(activeMatrix);
               })
             )),
           tap(() => this.loading = false)

@@ -31,6 +31,7 @@ const routes: Routes = [
         path: 'prices',
         loadChildren: () => import('../prices/prices.module').then(m => m.PricesModule)
       },
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   },
 ];

@@ -33,7 +33,7 @@ export class MainContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.navigateByUrl('/dashboard').finally(() => this.showMessageDialog());
+    this.showMessageDialog();
   }
 
   showMessageDialog() {
