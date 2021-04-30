@@ -26,7 +26,11 @@ export class DataSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.roles = this.tokenService.roles;
-    this.getClients();
+    this.roles.includes('superadmin')
+      ? this.getClients()
+      : this.roles.includes('client-admin')
+      ? this.onClientSelected(this.tokenService.getClientId())
+      : of(null);
   }
 
   getClients(): void {

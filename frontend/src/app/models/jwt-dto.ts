@@ -3,4 +3,6 @@ export class JwtDTO {
   type: string;
   username: string;
   authority: string[];
+  clientId: string;
+  contractId: string;
 }

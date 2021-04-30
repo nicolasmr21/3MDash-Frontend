@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import {JwtDTO} from "../models/jwt-dto";
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUserName';
 const AUTHORITIES_KEY = 'AuthAuthorities';
+const CLIENT_ID = 'AuthClientId';
+const CONTRACT_ID = 'AuthContractId';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
 export class TokenService {
 
   roles: Array<string> = [];
+  user: JwtDTO;
 
   constructor() { }
 
@@ -20,6 +24,24 @@ export class TokenService {
 
   public getToken(): string {
     return sessionStorage.getItem(TOKEN_KEY);
+  }
+
+  public getClientId(): string {
+    return sessionStorage.getItem(CLIENT_ID);
+  }
+
+  public getContractId(): string {
+    return sessionStorage.getItem(CONTRACT_ID);
+  }
+
+  public setClientId(clientId: string): void {
+    window.sessionStorage.removeItem(CLIENT_ID);
+    window.sessionStorage.setItem(CLIENT_ID, clientId);
+  }
+
+  public setContractId(contractId: string): void {
+    window.sessionStorage.removeItem(CONTRACT_ID);
+    window.sessionStorage.setItem(CONTRACT_ID, contractId);
   }
 
   public setUserName(userName: string): void {

@@ -32,9 +32,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    if(!this.dataSelectorService.getClient() || !this.dataSelectorService.getContract()) {
-      this.toastService.show('Elegir cliente y contrato para desplegar datos', APP_NAME, { status: 'info' });
-    }
     this.getData();
   }
 

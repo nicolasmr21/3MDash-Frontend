@@ -4,6 +4,7 @@ import { CLIENTS_ENDPOINT, CONTRACTS_ENDPOINT } from "../utils/app.endpoints";
 import { ClientDto } from "../models/client-dto";
 import { BehaviorSubject, Observable } from "rxjs";
 import { ContractDto } from "../models/contract-dto";
+import {TokenService} from "./token.service";
 
 const CLIENT_KEY = 'SessionClient';
 const CONTRACT_KEY = 'SessionContract';
@@ -17,8 +18,19 @@ export class DataSelectorService {
 
   constructor(
     private httpClient: HttpClient,
+    private tokenService: TokenService,
   ) {
+    this.generateDefaultValues();
     this.contractSelected.next(this.getContract());
+  }
+
+  public generateDefaultValues(): void {
+    if(this.tokenService.getClientId()) {
+      this.setClient(this.tokenService.getClientId())
+    }
+    if(this.tokenService.getContractId()) {
+      this.setContract(this.tokenService.getContractId())
+    }
   }
 
   public getClients(): Observable<ClientDto[]> {
