@@ -39,11 +39,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Energía Inductiva',
     icon: 'activity-outline',
+    hidden: true,
     link: '/inductive',
   },
   {
     title: 'Energía Capacitiva',
     icon: 'activity-outline',
+    hidden: true,
     link: '/capacitive',
   },
 ];
