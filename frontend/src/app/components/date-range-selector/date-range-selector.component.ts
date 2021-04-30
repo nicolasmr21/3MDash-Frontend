@@ -19,7 +19,6 @@ export class DateRangeSelectorComponent implements OnInit {
   constructor(
     private consumptionService: ConsumptionService,
     private dataSelectorService: DataSelectorService,
-    private toastService: NbToastrService,
   ) { }
 
   ngOnInit(): void {
