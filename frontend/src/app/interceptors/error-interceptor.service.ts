@@ -3,13 +3,18 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { of} from 'rxjs';
 import { TokenService } from '../services/token.service';
 import { catchError } from "rxjs/operators";
+import { AuthService } from "../services/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptorService implements HttpInterceptor {
 
-  constructor(private tokenService: TokenService) { }
+  constructor(
+    private tokenService: TokenService,
+    private authService: AuthService,
+
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     return next.handle(request)
@@ -17,7 +22,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
         catchError(err => {
           if ([401, 403].includes(err.status) && this.tokenService.getToken()) {
             // auto logout if 401 or 403 response returned from api
-            this.tokenService.logOut();
+            this.authService.logOut();
           }
           const error = (err && err.error && err.error.message) || err.statusText;
           return of(error);
