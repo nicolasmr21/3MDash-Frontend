@@ -66,4 +66,15 @@ export class ActiveComponent implements OnInit {
       )
       .subscribe();
   }
+
+  onLineGraphicDateChange(dates: Date[]) {
+    this.loading = true;
+    this.consumptionService.getActiveData(this.contractId, dates[0], dates[1])
+      .pipe(
+        tap((activeData) => this.activeData.next(activeData)),
+        tap(() => this.loading = false),
+        first()
+      )
+      .subscribe();
+  }
 }

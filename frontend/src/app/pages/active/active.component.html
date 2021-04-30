@@ -20,8 +20,9 @@
     <nb-accordion-item-body>
       <app-active-line-graph
         *ngIf="activeData.getValue()" class="col-12"
-        [theme]="theme" defaultPeriod="month"
+        [theme]="theme"
         [data$]="activeData.asObservable()"
+        (dateEmitter)="onLineGraphicDateChange($event)"
       ></app-active-line-graph>
     </nb-accordion-item-body>
   </nb-accordion-item>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FilterService } from "../../services/filter.service";
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -12,15 +12,15 @@ import {filter, tap} from "rxjs/operators";
 export class ActiveLineGraphComponent implements OnInit {
 
   @Input() theme: string;
-  @Input() defaultPeriod: string;
   @Input() data$: Observable<ConsumptionUnitDto[]>;
+
+  @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
   options: any;
   loading: boolean;
   data: ConsumptionUnitDto[];
-  filteredData: ConsumptionUnitDto[];
 
   constructor(
-    private filterService: FilterService,
   ) { }
 
   ngOnInit(): void {
@@ -29,13 +29,12 @@ export class ActiveLineGraphComponent implements OnInit {
       .pipe(
         filter((data) => !!data),
         tap((data) => this.data = data),
-        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+        tap(() => this.generateOptions())
       )
       .subscribe();
   }
 
-  generateOptions(period: string) {
-    this.filteredData = this.filterData(period);
+  generateOptions() {
     this.options = {
       backgroundColor: 'transparent',
       tooltip: {
@@ -54,7 +53,7 @@ export class ActiveLineGraphComponent implements OnInit {
           formatter: '',
         },
         boundaryGap: true,
-        data: this.filteredData.map(value => value.dateConsumption)
+        data: this.data.map(value => value.dateConsumption)
       },
       yAxis: {
         type: 'value',
@@ -73,7 +72,7 @@ export class ActiveLineGraphComponent implements OnInit {
         {
           type: 'line',
           smooth: true,
-          data: this.filteredData.map(value => value.consumptionUnits),
+          data: this.data.map(value => value.consumptionUnits),
           lineStyle: {
             color: 'rgb(5, 216, 145)',
             width: 2,
@@ -87,7 +86,7 @@ export class ActiveLineGraphComponent implements OnInit {
     this.loading = false;
   }
 
-  private filterData(period: string) {
-    return this.filterService.filterDataByPeriod(period, this.data);
+  onDateChange(dates: Date[]): void {
+    this.dateEmitter.emit(dates);
   }
 }

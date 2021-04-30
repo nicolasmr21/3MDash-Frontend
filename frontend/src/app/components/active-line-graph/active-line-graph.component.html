@@ -4,7 +4,8 @@
       <h5 class="font-weight-light">Curva de Energía Activa</h5>
     </div>
     <div class="col-4 d-flex justify-content-end">
-      <app-period-select (selectedEmitter)="generateOptions($event)" [defaultPeriod]="defaultPeriod"></app-period-select>
+      <app-date-range-selector (dateEmitter)="onDateChange($event)"></app-date-range-selector>
+      <app-period-select hidden (selectedEmitter)="generateOptions($event)" [defaultPeriod]="defaultPeriod"></app-period-select>
     </div>
     </nb-card-header>
   <nb-card-body>
