@@ -82,7 +82,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
               }
             }
           },
-          data: this.reactiveFilteredData.map((item) => item[1])
+          data: this.reactiveFilteredData.map((item) => item.dateConsumption)
         },
         {
           type: 'category',
