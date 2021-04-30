@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateRangeSelectorComponent } from './date-range-selector.component';
-import {NbDatepickerModule, NbInputModule} from "@nebular/theme";
+import {NbDatepickerModule, NbInputModule, NbTooltipModule} from "@nebular/theme";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -13,7 +14,9 @@ import {NbDatepickerModule, NbInputModule} from "@nebular/theme";
   imports: [
     CommonModule,
     NbDatepickerModule,
-    NbInputModule
+    NbInputModule,
+    FormsModule,
+    NbTooltipModule
   ]
 })
 export class DateRangeSelectorModule { }

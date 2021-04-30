@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-6">
-    <label>
-      <input nbInput placeholder="Desde" [nbDatepicker]="pickerFrom">
+    <label nbTooltip="Fecha inicio">
+      <input nbInput placeholder="Desde" [nbDatepicker]="pickerFrom" [(ngModel)]="dateFrom">
     </label>
-    <nb-datepicker #pickerFrom [(date)]="dateFrom" (dateChange)="onDateFromChange($event)"></nb-datepicker>
+    <nb-datepicker #pickerFrom (dateChange)="onDateFromChange($event)"></nb-datepicker>
   </div>
   <div class="col-6">
-    <label>
-      <input nbInput placeholder="Hasta" [nbDatepicker]="pickerTo">
+    <label nbTooltip="Fecha fin">
+      <input nbInput placeholder="Hasta" [nbDatepicker]="pickerTo" [(ngModel)]="dateTo">
     </label>
-    <nb-datepicker #pickerTo [(date)]="dateTo" (dateChange)="onDateToChange($event)"></nb-datepicker>
+    <nb-datepicker #pickerTo (dateChange)="onDateToChange($event)"></nb-datepicker>
   </div>
 </div>

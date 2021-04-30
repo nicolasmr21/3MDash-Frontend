@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest } from "rxjs";
-import { filter, switchMap, tap } from "rxjs/operators";
+import {filter, first, switchMap, tap} from "rxjs/operators";
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
 import {ThemeService} from "../../services/theme.service";
 import {DataSelectorService} from "../../services/data-selector.service";
@@ -17,6 +17,7 @@ export class ActiveComponent implements OnInit {
   activeData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
   theme: string;
   loading: boolean;
+  contractId: string;
 
   constructor(
     private themeService: ThemeService,
@@ -37,6 +38,7 @@ export class ActiveComponent implements OnInit {
       this.dataSelectorService.getContract$()
         .pipe(
           filter((value) => !!value),
+          tap((value) => this.contractId = value),
           tap(() => this.loading = true),
           switchMap((value) => combineLatest([
             this.consumptionService.getActiveData(value),
@@ -51,6 +53,17 @@ export class ActiveComponent implements OnInit {
           tap(() => this.loading = false)
         ),
     ])
+      .subscribe();
+  }
+
+  onMatrixDateChange(dates: Date[]) {
+    this.loading = true;
+    this.consumptionService.getActiveMatrix(this.contractId, dates[0], dates[1])
+      .pipe(
+        tap((activeMatrix) => this.activeMatrix.next(activeMatrix)),
+        tap(() => this.loading = false),
+        first()
+      )
       .subscribe();
   }
 }

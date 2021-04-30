@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { MATRIX_HEADERS } from "../../utils/app.titles";
 import { FilterService } from "../../services/filter.service";
 import {Observable} from "rxjs";
@@ -18,6 +18,9 @@ export class MeasureMatrixComponent implements OnInit {
   @Input() units: number;
   @Input() data$: Observable<string[][]>;
   @Input() data: string[][];
+
+  @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
   headers = MATRIX_HEADERS;
   filteredData: string[][];
   loading: boolean;
@@ -43,6 +46,6 @@ export class MeasureMatrixComponent implements OnInit {
   }
 
   onDateChange(dates: Date[]) {
-    this.filteredData = this.filterService.filterDataByDate(this.data, dates[0], dates[1]);
+    this.dateEmitter.emit(dates);
   }
 }

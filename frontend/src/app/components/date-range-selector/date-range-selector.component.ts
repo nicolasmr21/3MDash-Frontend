@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {ConsumptionService} from "../../services/consumption.service";
 
 @Component({
   selector: 'app-date-range-selector',
@@ -11,12 +12,13 @@ export class DateRangeSelectorComponent implements OnInit {
   dateFrom: Date;
   dateTo: Date;
 
-  constructor() { }
+  constructor(
+    private consumptionService: ConsumptionService,
+  ) { }
 
   ngOnInit(): void {
-    const date = new Date();
-    this.dateFrom = new Date(date.getFullYear(), date.getMonth(), 1);
-    this.dateTo = new Date();
+    this.dateFrom = this.consumptionService.firstDateOfMonth;
+    this.dateTo = this.consumptionService.lastDateOfMonth;
   }
 
   onDateToChange(newDate: Date) {
