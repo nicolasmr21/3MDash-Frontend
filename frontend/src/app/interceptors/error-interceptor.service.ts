@@ -20,9 +20,9 @@ export class ErrorInterceptorService implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError(err => {
-          if ([401, 403].includes(err.status) && this.tokenService.getToken()) {
-            // auto logout if 401 or 403 response returned from api
+          if ([401].includes(err.status) && this.tokenService.getToken()) {
             this.authService.logOut();
+            window.location.reload();
           }
           const error = (err && err.error && err.error.message) || err.statusText;
           return of(error);
