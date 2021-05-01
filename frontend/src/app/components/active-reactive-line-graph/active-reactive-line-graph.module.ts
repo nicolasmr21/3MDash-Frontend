@@ -4,6 +4,7 @@ import { ActiveReactiveLineGraphComponent } from './active-reactive-line-graph.c
 import {NbCardModule, NbSpinnerModule} from "@nebular/theme";
 import {NgxEchartsModule} from "ngx-echarts";
 import {PeriodSelectModule} from "../period-select/period-select.module";
+import {DateRangeSelectorModule} from "../date-range-selector/date-range-selector.module";
 
 
 
@@ -17,7 +18,8 @@ import {PeriodSelectModule} from "../period-select/period-select.module";
     NbCardModule,
     NgxEchartsModule,
     PeriodSelectModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    DateRangeSelectorModule
   ]
 })
 export class ActiveReactiveLineGraphModule { }

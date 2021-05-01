@@ -27,7 +27,6 @@ export class MeasureMatrixComponent implements OnInit {
   options: any;
 
   constructor(
-    private filterService: FilterService,
   ) { }
 
   ngOnInit(): void {

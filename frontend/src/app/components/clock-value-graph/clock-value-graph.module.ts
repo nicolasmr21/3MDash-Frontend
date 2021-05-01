@@ -4,6 +4,7 @@ import { ClockValueGraphComponent } from './clock-value-graph.component';
 import {NbCardModule, NbSpinnerModule} from "@nebular/theme";
 import {PeriodSelectModule} from "../period-select/period-select.module";
 import {NgxEchartsModule} from "ngx-echarts";
+import {DateRangeSelectorModule} from "../date-range-selector/date-range-selector.module";
 
 
 
@@ -17,7 +18,8 @@ import {NgxEchartsModule} from "ngx-echarts";
     NbSpinnerModule,
     NbCardModule,
     PeriodSelectModule,
-    NgxEchartsModule
+    NgxEchartsModule,
+    DateRangeSelectorModule
   ]
 })
 export class ClockValueGraphModule { }

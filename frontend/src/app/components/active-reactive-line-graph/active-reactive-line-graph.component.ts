@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FilterService } from "../../services/filter.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
-import {combineLatest, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {filter, switchMap, tap} from "rxjs/operators";
 
 @Component({
@@ -15,15 +14,15 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
   @Input() defaultPeriod: string;
   @Input() activeData$: Observable<ConsumptionUnitDto[]>;
   @Input() reactiveData$: Observable<ConsumptionUnitDto[]>;
-  @Input() activeData: ConsumptionUnitDto[];
-  @Input() reactiveData: ConsumptionUnitDto[];
+
+  @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
   options: any;
   loading: boolean;
-  activeFilteredData: ConsumptionUnitDto[];
-  reactiveFilteredData: ConsumptionUnitDto[];
+  activeData: ConsumptionUnitDto[];
+  reactiveData: ConsumptionUnitDto[];
 
   constructor(
-    private filterService: FilterService,
   ) {
   }
 
@@ -36,14 +35,12 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
         switchMap(() => this.reactiveData$),
         filter((data) => !!data),
         tap((data) => this.reactiveData = data),
-        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+        tap(() => this.generateOptions())
       )
       .subscribe();
   }
 
-  generateOptions(period: string) {
-    this.activeFilteredData = this.filterData(period, this.activeData);
-    this.reactiveFilteredData = this.filterData(period, this.reactiveData);
+  generateOptions() {
     this.options = {
       backgroundColor: 'transparent',
       tooltip: {
@@ -82,7 +79,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
               }
             }
           },
-          data: this.reactiveFilteredData.map((item) => item.dateConsumption
+          data: this.reactiveData.map((item) => item.dateConsumption
           )
         },
         {
@@ -107,7 +104,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
               }
             }
           },
-          data: this.activeFilteredData.map((item) => item.dateConsumption)
+          data: this.activeData.map((item) => item.dateConsumption)
         }
       ],
       yAxis: [
@@ -123,7 +120,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
           emphasis: {
             focus: 'series'
           },
-          data: this.reactiveFilteredData.map((value) => value.consumptionUnits)
+          data: this.reactiveData.map((value) => value.consumptionUnits)
         },
         {
           name: 'Energía Activa',
@@ -133,14 +130,14 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
           emphasis: {
             focus: 'series'
           },
-          data: this.activeFilteredData.map((value) => value.consumptionUnits)
+          data: this.activeData.map((value) => value.consumptionUnits)
         }
       ]
     };
     this.loading = false;
   }
 
-  private filterData(period: string, data: ConsumptionUnitDto[]) {
-    return this.filterService.filterDataByPeriod(period, data);
+  onDateChange(dates: Date[]): void {
+    this.dateEmitter.emit(dates);
   }
 }

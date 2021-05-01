@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
-import { filter, switchMap, tap } from "rxjs/operators";
+import {filter, first, switchMap, tap} from "rxjs/operators";
 import { BehaviorSubject, combineLatest } from "rxjs";
 import { DataSelectorService } from "../../services/data-selector.service";
 import { ConsumptionService } from 'src/app/services/consumption.service';
@@ -15,9 +15,12 @@ import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
 export class DashboardComponent implements OnInit {
 
   theme: string;
+  contractId: string;
   loading: boolean;
-  activeData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
-  reactiveData: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  activeDataClock: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  activeDataGraphic: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  reactiveDataClock: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
+  reactiveDataGraphic: BehaviorSubject<ConsumptionUnitDto[]> = new BehaviorSubject<ConsumptionUnitDto[]>(null);
 
   constructor(
     private themeService: ThemeService,
@@ -39,6 +42,7 @@ export class DashboardComponent implements OnInit {
       this.dataSelectorService.getContract$()
         .pipe(
           filter((value) => !!value),
+          tap((value) => this.contractId = value),
           tap(() => this.loading = true),
           switchMap((value) => combineLatest([
             this.consumptionService.getActiveData(value),
@@ -46,13 +50,54 @@ export class DashboardComponent implements OnInit {
           ])
             .pipe(
               tap(([active, reactive]) => {
-                this.activeData.next(active);
-                this.reactiveData.next(reactive);
+                this.activeDataClock.next(active);
+                this.reactiveDataClock.next(reactive);
+                this.activeDataGraphic.next(active);
+                this.reactiveDataGraphic.next(reactive);
               })
             )),
           tap(() => this.loading = false)
         ),
     ])
+      .subscribe();
+  }
+
+  onActiveClockDateChange(dates: Date[]) {
+    this.loading = true;
+    this.consumptionService.getActiveData(this.contractId, dates[0], dates[1])
+      .pipe(
+        tap((active) => this.activeDataClock.next(active)),
+        tap(() => this.loading = false),
+        first()
+      )
+      .subscribe();
+  }
+
+  onReactiveClockDateChange(dates: Date[]) {
+    this.loading = true;
+    this.consumptionService.getReactiveData(this.contractId, dates[0], dates[1])
+      .pipe(
+        tap((reactive) => this.reactiveDataClock.next(reactive)),
+        tap(() => this.loading = false),
+        first()
+      )
+      .subscribe();
+  }
+
+  onGraphicDateChange(dates: Date[]) {
+    this.loading = true;
+    combineLatest([
+      this.consumptionService.getActiveData(this.contractId, dates[0], dates[1]),
+      this.consumptionService.getReactiveData(this.contractId, dates[0], dates[1]),
+    ])
+      .pipe(
+        tap(([active, reactive]) => {
+          this.activeDataGraphic.next(active);
+          this.reactiveDataGraphic.next(reactive);
+        }),
+        tap(() => this.loading = false),
+        first()
+      )
       .subscribe();
   }
 }

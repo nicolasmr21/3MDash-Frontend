@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilterService} from "../../services/filter.service";
 import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
 import {Observable} from "rxjs";
@@ -16,8 +16,11 @@ export class ClockValueGraphComponent implements OnInit {
   @Input() theme: string;
   @Input() units: number;
   @Input() data$: Observable<ConsumptionUnitDto[]>;
-  @Input() data: ConsumptionUnitDto[];
-  filteredData: ConsumptionUnitDto[];
+
+  @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
+  data: ConsumptionUnitDto[];
+
   loading: boolean;
   options: any;
 
@@ -31,14 +34,13 @@ export class ClockValueGraphComponent implements OnInit {
       .pipe(
         filter((data) => !!data),
         tap((data) => this.data = data),
-        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+        tap(() => this.generateOptions())
       )
       .subscribe();
   }
 
-  generateOptions(period: string) {
-    this.filteredData = this.filterService.filterDataByPeriod(period, this.data);
-    const max = this.filterService.getMaxValue(this.filteredData);
+  generateOptions() {
+    const max = this.filterService.getMaxValue(this.data);
     this.options = {
       background: 'transparent',
       tooltip: {
@@ -58,5 +60,9 @@ export class ClockValueGraphComponent implements OnInit {
       }]
     };
     this.loading = false;
+  }
+
+  onDateChange(dates: Date[]): void {
+    this.dateEmitter.emit(dates);
   }
 }

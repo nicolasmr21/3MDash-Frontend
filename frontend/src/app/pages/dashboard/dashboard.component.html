@@ -1,6 +1,27 @@
 <div class="row h-100" [nbSpinner]="loading">
-  <app-clock-value-graph *ngIf="activeData.getValue()" [theme]="theme" measure="Energía Activa" units="kWh" [data$]="activeData.asObservable()" class="col-6"></app-clock-value-graph>
-  <app-clock-value-graph *ngIf="reactiveData.getValue()" [theme]="theme" measure="Energía Reactiva" units="kVArh" [data$]="reactiveData.asObservable()" class="col-6"></app-clock-value-graph>
-  <app-active-reactive-line-graph *ngIf="activeData.getValue() && reactiveData.getValue()" class="col-12" [theme]="theme" defaultPeriod="month" [activeData$]="activeData.asObservable()" [reactiveData$]="reactiveData.asObservable()"></app-active-reactive-line-graph>
-  <app-reactive-line-graph *ngIf="reactiveData.getValue()" class="col-12" [theme]="theme" defaultPeriod="month" [data$]="reactiveData.asObservable()"></app-reactive-line-graph>
+  <app-clock-value-graph
+    *ngIf="activeDataClock.getValue()"
+    [theme]="theme"
+    measure="Energía Activa"
+    units="kWh"
+    [data$]="activeDataClock.asObservable()"
+    class="col-6"
+    (dateEmitter)="onActiveClockDateChange($event)"
+  ></app-clock-value-graph>
+  <app-clock-value-graph
+    *ngIf="reactiveDataClock.getValue()"
+    [theme]="theme"
+    measure="Energía Reactiva"
+    units="kVArh"
+    [data$]="reactiveDataClock.asObservable()"
+    class="col-6"
+    (dateEmitter)="onReactiveClockDateChange($event)"
+  ></app-clock-value-graph>
+  <app-active-reactive-line-graph
+    *ngIf="activeDataGraphic.getValue() && reactiveDataGraphic.getValue()"
+    class="col-12" [theme]="theme"
+    [activeData$]="activeDataGraphic.asObservable()"
+    [reactiveData$]="reactiveDataGraphic.asObservable()"
+    (dateEmitter)="onGraphicDateChange($event)"
+  ></app-active-reactive-line-graph>
 </div>
