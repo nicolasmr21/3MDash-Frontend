@@ -20,7 +20,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError(err => {
-          if ([401].includes(err.status) && this.tokenService.getToken()) {
+          if ([401, 403].includes(err.status) && this.tokenService.getToken()) {
             this.authService.logOut();
             window.location.reload();
           }

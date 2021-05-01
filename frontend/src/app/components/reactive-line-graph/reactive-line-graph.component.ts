@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FilterService } from "../../services/filter.service";
-import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
-import {Observable} from "rxjs";
-import {filter, tap} from "rxjs/operators";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
+import { Observable } from "rxjs";
+import { filter, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-reactive-line-graph',
@@ -14,13 +13,14 @@ export class ReactiveLineGraphComponent implements OnInit {
   @Input() theme: string;
   @Input() defaultPeriod: string;
   @Input() data$: Observable<ConsumptionUnitDto[]>;
-  @Input() data: ConsumptionUnitDto[];
+
+  @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
+
   options: any;
   loading: boolean;
-  filteredData: ConsumptionUnitDto[];
+  data: ConsumptionUnitDto[];
 
   constructor(
-    private filterService: FilterService,
   ) { }
 
   ngOnInit(): void {
@@ -29,13 +29,12 @@ export class ReactiveLineGraphComponent implements OnInit {
       .pipe(
         filter((data) => !!data),
         tap((data) => this.data = data),
-        tap(() => this.generateOptions(this.defaultPeriod || 'day'))
+        tap(() => this.generateOptions())
       )
       .subscribe();
   }
 
-  generateOptions(period: string) {
-    this.filteredData = this.filterData(period);
+  generateOptions() {
     this.options = {
       backgroundColor: 'transparent',
       tooltip: {
@@ -54,7 +53,7 @@ export class ReactiveLineGraphComponent implements OnInit {
           formatter: '',
         },
         boundaryGap: true,
-        data: this.filteredData.map(value => value.dateConsumption)
+        data: this.data.map(value => value.dateConsumption)
       },
       yAxis: {
         type: 'value',
@@ -73,7 +72,7 @@ export class ReactiveLineGraphComponent implements OnInit {
         {
           type: 'line',
           smooth: true,
-          data: this.filteredData.map(value => value.consumptionUnits),
+          data: this.data.map(value => value.consumptionUnits),
           lineStyle: {
             color: 'rgba(52, 103, 255, 1)',
             width: 2,
@@ -87,7 +86,7 @@ export class ReactiveLineGraphComponent implements OnInit {
     this.loading = false;
   }
 
-  private filterData(period: string) {
-    return this.filterService.filterDataByPeriod(period, this.data);
+  onDateChange(dates: Date[]) {
+    this.dateEmitter.emit(dates);
   }
 }

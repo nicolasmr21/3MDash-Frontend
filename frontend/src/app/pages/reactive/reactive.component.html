@@ -1,1 +1,29 @@
-<p>reactive works!</p>
+<nb-accordion multi [nbSpinner]="loading">
+  <nb-accordion-item expanded>
+    <nb-accordion-item-header>
+      Matriz
+    </nb-accordion-item-header>
+    <nb-accordion-item-body class="p-0">
+      <app-measure-matrix
+        *ngIf="reactiveMatrix.getValue()" class="col-12"
+        [theme]="theme" measure="Energía Activa"
+        [data$]="reactiveMatrix.asObservable()" units="kWh"
+        (dateEmitter)="onMatrixDateChange($event)"
+      ></app-measure-matrix>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item expanded>
+    <nb-accordion-item-header>
+      Gráficos
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <app-reactive-line-graph
+        *ngIf="reactiveData.getValue()" class="col-12"
+        [theme]="theme"
+        [data$]="reactiveData.asObservable()"
+        (dateEmitter)="onLineGraphicDateChange($event)"
+      ></app-reactive-line-graph>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
