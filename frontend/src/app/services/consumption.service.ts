@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CONSUMPTION_ENDPOINT} from "../utils/app.endpoints";
 import { ConsumptionUnitDto } from "../models/consumption-unit-dto";
+import {MaxMinDateDto} from "../models/max-min-date-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,13 @@ export class ConsumptionService {
     this.lastDateOfMonth = new Date(2020, 2, 30);
   }
 
-  public getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
+  getDataDateRange(contractId: string): Observable<MaxMinDateDto> {
+    return this.httpClient.get<MaxMinDateDto>(CONSUMPTION_ENDPOINT + `maxmindate/get`, {
+      params: { contractId }
+    });
+  }
+
+  getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
     return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `active/filter`, {
       params: {
         contractId,
@@ -31,7 +38,7 @@ export class ConsumptionService {
     });
   }
 
-  public getReactiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
+  getReactiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
     return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `reactive/filter`, {
       params: {
         contractId,
@@ -41,7 +48,7 @@ export class ConsumptionService {
     });
   }
 
-  public getActiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
+  getActiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
     return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `active/matrix/get`, {
       params: {
         contractId,
@@ -51,7 +58,7 @@ export class ConsumptionService {
     });
   }
 
-  public getReactiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
+  getReactiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
     return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `reactive/matrix/get`, {
       params: {
         contractId,

@@ -3,12 +3,12 @@
     <label nbTooltip="Fecha inicio">
       <input nbInput placeholder="Desde" [nbDatepicker]="pickerFrom" [ngModel]="dateFrom">
     </label>
-    <nb-datepicker #pickerFrom (dateChange)="onDateFromChange($event)" [date]="dateFrom" [max]="dateTo"></nb-datepicker>
+    <nb-datepicker #pickerFrom (dateChange)="onDateFromChange($event)" [date]="dateFrom" [min]="getDate(dateRange?.minDate)" [max]="dateTo"></nb-datepicker>
   </div>
   <div class="col-6">
     <label nbTooltip="Fecha fin">
       <input nbInput placeholder="Hasta" [nbDatepicker]="pickerTo" [ngModel]="dateTo">
     </label>
-    <nb-datepicker #pickerTo (dateChange)="onDateToChange($event)" [date]="dateTo" [min]="dateFrom"></nb-datepicker>
+    <nb-datepicker #pickerTo (dateChange)="onDateToChange($event)" [date]="dateTo" [min]="dateFrom" [max]="getDate(dateRange?.maxDate)"></nb-datepicker>
   </div>
 </div>

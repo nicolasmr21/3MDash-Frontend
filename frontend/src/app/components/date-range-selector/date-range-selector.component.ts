@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConsumptionService} from "../../services/consumption.service";
 import {DataSelectorService} from "../../services/data-selector.service";
-import {tap} from "rxjs/operators";
+import {switchMap, tap} from "rxjs/operators";
 import {NbToastrService} from "@nebular/theme";
 import {APP_NAME} from "../../utils/app.titles";
+import {MaxMinDateDto} from "../../models/max-min-date-dto";
 
 @Component({
   selector: 'app-date-range-selector',
@@ -15,6 +16,7 @@ export class DateRangeSelectorComponent implements OnInit {
   @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
   dateFrom: Date;
   dateTo: Date;
+  dateRange: MaxMinDateDto;
 
   constructor(
     private consumptionService: ConsumptionService,
@@ -24,6 +26,8 @@ export class DateRangeSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.dataSelectorService.getContract$()
       .pipe(
+        switchMap((contract) => this.consumptionService.getDataDateRange(contract)),
+        tap((range) => this.dateRange = range),
         tap(() => this.generateDefaultDates())
       )
       .subscribe()
@@ -40,5 +44,9 @@ export class DateRangeSelectorComponent implements OnInit {
 
   onDateFromChange(newDate: Date): void {
     this.dateEmitter.emit([newDate, this.dateTo]);
+  }
+
+  getDate(date: string): Date {
+    return new Date(date);
   }
 }
