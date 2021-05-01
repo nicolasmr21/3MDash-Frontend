@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConsumptionService} from "../../services/consumption.service";
 import {DataSelectorService} from "../../services/data-selector.service";
-import {switchMap, tap} from "rxjs/operators";
+import {filter, switchMap, tap} from "rxjs/operators";
 import {MaxMinDateDto} from "../../models/max-min-date-dto";
 
 @Component({
@@ -24,6 +24,7 @@ export class DateRangeSelectorComponent implements OnInit {
   ngOnInit(): void {
     this.dataSelectorService.getContract$()
       .pipe(
+        filter((value) => !!value),
         switchMap((contract) => this.consumptionService.getDataDateRange(contract)),
         tap((range) => this.dateRange = range),
         tap(() => this.generateDefaultDates())

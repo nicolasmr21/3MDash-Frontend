@@ -5,7 +5,7 @@
     </nb-select>
   </ng-container>
   <ng-container *ngIf="roles.includes('superadmin') || roles.includes('client-admin')" >
-    <nb-select [nbSpinner]="!clients" nbTooltip="Contrato" class="col p-0" placeholder="Seleccione un contrato" [(selected)]="selectedContract" [disabled]="(!selectedClient && roles.includes('superadmin')) || !contracts" (selectedChange)="onContractSelected($event)">
+    <nb-select [nbSpinner]="!contracts && !clients" nbTooltip="Contrato" class="col p-0" placeholder="Seleccione un contrato" [(selected)]="selectedContract" [disabled]="(!selectedClient && roles.includes('superadmin')) || !contracts" (selectedChange)="onContractSelected($event)">
       <nb-option *ngFor="let contract of contracts" [value]="contract.id.toString()">{{contract.name}}</nb-option>
     </nb-select>
   </ng-container>
