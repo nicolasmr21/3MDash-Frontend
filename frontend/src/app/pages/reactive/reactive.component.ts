@@ -41,8 +41,8 @@ export class ReactiveComponent implements OnInit {
           tap((value) => this.contractId = value),
           tap(() => this.loading = true),
           switchMap((value) => combineLatest([
-            this.consumptionService.getReactiveData(value),
-            this.consumptionService.getReactiveMatrix(value),
+            this.consumptionService.getData(value, 'reactive'),
+            this.consumptionService.getMatrix(value, 'reactive'),
           ])
             .pipe(
               tap(([reactive, reactiveMatrix]) => {
@@ -58,7 +58,7 @@ export class ReactiveComponent implements OnInit {
 
   onMatrixDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getActiveMatrix(this.contractId, dates[0], dates[1])
+    this.consumptionService.getMatrix(this.contractId, 'reactive', dates[0], dates[1])
       .pipe(
         tap((activeMatrix) => this.reactiveMatrix.next(activeMatrix)),
         tap(() => this.loading = false),
@@ -69,7 +69,7 @@ export class ReactiveComponent implements OnInit {
 
   onLineGraphicDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getActiveData(this.contractId, dates[0], dates[1])
+    this.consumptionService.getData(this.contractId, 'reactive', dates[0], dates[1])
       .pipe(
         tap((activeData) => this.reactiveData.next(activeData)),
         tap(() => this.loading = false),

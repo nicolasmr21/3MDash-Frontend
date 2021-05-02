@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest } from "rxjs";
-import {filter, first, switchMap, tap} from "rxjs/operators";
+import { filter, first, switchMap, tap } from "rxjs/operators";
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
-import {ThemeService} from "../../services/theme.service";
-import {DataSelectorService} from "../../services/data-selector.service";
-import {ConsumptionService} from "../../services/consumption.service";
+import { ThemeService} from "../../services/theme.service";
+import { DataSelectorService } from "../../services/data-selector.service";
+import { ConsumptionService } from "../../services/consumption.service";
 
 @Component({
   selector: 'app-active',
@@ -41,8 +41,8 @@ export class ActiveComponent implements OnInit {
           tap((value) => this.contractId = value),
           tap(() => this.loading = true),
           switchMap((value) => combineLatest([
-            this.consumptionService.getActiveData(value),
-            this.consumptionService.getActiveMatrix(value),
+            this.consumptionService.getData(value, 'active'),
+            this.consumptionService.getMatrix(value, 'active'),
           ])
             .pipe(
               tap(([active, activeMatrix]) => {
@@ -58,7 +58,7 @@ export class ActiveComponent implements OnInit {
 
   onMatrixDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getActiveMatrix(this.contractId, dates[0], dates[1])
+    this.consumptionService.getMatrix(this.contractId, 'active', dates[0], dates[1])
       .pipe(
         tap((activeMatrix) => this.activeMatrix.next(activeMatrix)),
         tap(() => this.loading = false),
@@ -69,7 +69,7 @@ export class ActiveComponent implements OnInit {
 
   onLineGraphicDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getActiveData(this.contractId, dates[0], dates[1])
+    this.consumptionService.getData(this.contractId, 'active', dates[0], dates[1])
       .pipe(
         tap((activeData) => this.activeData.next(activeData)),
         tap(() => this.loading = false),

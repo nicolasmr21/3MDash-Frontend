@@ -45,8 +45,8 @@ export class DashboardComponent implements OnInit {
           tap((value) => this.contractId = value),
           tap(() => this.loading = true),
           switchMap((value) => combineLatest([
-            this.consumptionService.getActiveData(value),
-            this.consumptionService.getReactiveData(value),
+            this.consumptionService.getData(value, 'active'),
+            this.consumptionService.getData(value, 'reactive'),
           ])
             .pipe(
               tap(([active, reactive]) => {
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
 
   onActiveClockDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getActiveData(this.contractId, dates[0], dates[1])
+    this.consumptionService.getData(this.contractId,'active', dates[0], dates[1])
       .pipe(
         tap((active) => this.activeDataClock.next(active)),
         tap(() => this.loading = false),
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
   onReactiveClockDateChange(dates: Date[]) {
     this.loading = true;
-    this.consumptionService.getReactiveData(this.contractId, dates[0], dates[1])
+    this.consumptionService.getData(this.contractId, 'reactive', dates[0], dates[1])
       .pipe(
         tap((reactive) => this.reactiveDataClock.next(reactive)),
         tap(() => this.loading = false),
@@ -87,8 +87,8 @@ export class DashboardComponent implements OnInit {
   onGraphicDateChange(dates: Date[]) {
     this.loading = true;
     combineLatest([
-      this.consumptionService.getActiveData(this.contractId, dates[0], dates[1]),
-      this.consumptionService.getReactiveData(this.contractId, dates[0], dates[1]),
+      this.consumptionService.getData(this.contractId, 'active', dates[0], dates[1]),
+      this.consumptionService.getData(this.contractId, 'reactive', dates[0], dates[1]),
     ])
       .pipe(
         tap(([active, reactive]) => {

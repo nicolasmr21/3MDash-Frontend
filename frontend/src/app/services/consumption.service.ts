@@ -28,8 +28,8 @@ export class ConsumptionService {
     });
   }
 
-  getActiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `active/filter`, {
+  getData(contractId: string, measure: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
+    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `${measure}/filter`, {
       params: {
         contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
@@ -38,28 +38,9 @@ export class ConsumptionService {
     });
   }
 
-  getReactiveData(contractId: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
-    return this.httpClient.get<ConsumptionUnitDto[]>(CONSUMPTION_ENDPOINT + `reactive/filter`, {
-      params: {
-        contractId,
-        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
-        end: end ? end.toISOString().split('T')[0] :  this.lastDateOfMonth.toISOString().split('T')[0],
-      }
-    });
-  }
 
-  getActiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
-    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `active/matrix/get`, {
-      params: {
-        contractId,
-        start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
-        end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
-      }
-    });
-  }
-
-  getReactiveMatrix(contractId: string, start?: Date, end?: Date): Observable<string[][]> {
-    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `reactive/matrix/get`, {
+  getMatrix(contractId: string, measure: string, start?: Date, end?: Date): Observable<string[][]> {
+    return this.httpClient.get<string[][]>(CONSUMPTION_ENDPOINT + `${measure}/matrix/get`, {
       params: {
         contractId,
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
