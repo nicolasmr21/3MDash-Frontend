@@ -1,9 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { MATRIX_HEADERS } from "../../utils/app.titles";
-import { FilterService } from "../../services/filter.service";
-import {Observable} from "rxjs";
-import {ConsumptionUnitDto} from "../../models/consumption-unit-dto";
-import {filter, tap} from "rxjs/operators";
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { MATRIX_HEADERS_PROM, MATRIX_HEADERS_TOTAL} from "../../utils/app.titles";
+import { Observable } from "rxjs";
+import { filter, tap } from "rxjs/operators";
 
 @Component({
   selector: 'app-measure-matrix',
@@ -13,6 +11,7 @@ import {filter, tap} from "rxjs/operators";
 export class MeasureMatrixComponent implements OnInit {
 
   @Input() measure: string;
+  @Input() mode: 'TOTAL' | 'PROMEDIO';
   @Input() defaultPeriod: string;
   @Input() theme: string;
   @Input() units: number;
@@ -21,7 +20,7 @@ export class MeasureMatrixComponent implements OnInit {
 
   @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
 
-  headers = MATRIX_HEADERS;
+  headers: string[];
   filteredData: string[][];
   loading: boolean;
   options: any;
@@ -30,13 +29,14 @@ export class MeasureMatrixComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.headers = this.mode === "TOTAL" ? MATRIX_HEADERS_TOTAL : MATRIX_HEADERS_PROM;
     this.loading = true;
     this.data$
       .pipe(
         filter((data) => !!data),
         tap((data) => {
           this.data = data;
-          this.data[this.data.length-1][0] = 'TOTAL';
+          this.data[this.data.length-1][0] = this.mode;
           this.filteredData = this.data;
           this.loading = false;
         }),
