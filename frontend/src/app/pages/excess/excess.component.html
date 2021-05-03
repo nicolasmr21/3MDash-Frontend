@@ -1,1 +1,24 @@
-<p>excess works!</p>
+<nb-accordion multi [nbSpinner]="loading">
+  <nb-accordion-item [expanded]="!!excessMatrix.getValue()">
+    <nb-accordion-item-header>
+      Matriz
+    </nb-accordion-item-header>
+    <nb-accordion-item-body class="p-0">
+      <app-measure-matrix
+        *ngIf="excessMatrix.getValue()" class="col-12"
+        mode="PROMEDIO"
+        [theme]="theme" measure="Exceso de Reactivos"
+        [data$]="excessMatrix.asObservable()" units="kWh"
+        (dateEmitter)="onMatrixDateChange($event)"
+      ></app-measure-matrix>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item [expanded]="!!excessData.getValue()">
+    <nb-accordion-item-header>
+      Gráficos
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

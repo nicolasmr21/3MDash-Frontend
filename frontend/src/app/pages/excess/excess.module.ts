@@ -3,13 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { ExcessRoutingModule } from './excess-routing.module';
 import { ExcessComponent } from './excess.component';
+import {NbAccordionModule, NbSpinnerModule} from "@nebular/theme";
+import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matrix.module";
 
 
 @NgModule({
   declarations: [ExcessComponent],
   imports: [
     CommonModule,
-    ExcessRoutingModule
+    ExcessRoutingModule,
+    NbAccordionModule,
+    MeasureMatrixModule,
+    NbSpinnerModule
   ]
 })
 export class ExcessModule { }

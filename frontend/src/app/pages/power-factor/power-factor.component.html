@@ -6,7 +6,7 @@
     <nb-accordion-item-body class="p-0">
       <app-measure-matrix
         *ngIf="powerMatrix.getValue()" class="col-12"
-        mode="TOTAL"
+        mode="PROMEDIO"
         [theme]="theme" measure="Factor de Potencia"
         [data$]="powerMatrix.asObservable()" units="kWh"
         (dateEmitter)="onMatrixDateChange($event)"
@@ -22,4 +22,3 @@
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>
-
