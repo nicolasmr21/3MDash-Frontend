@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ThemeService } from "./services/theme.service";
-import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {combineLatest, Subject} from "rxjs";
+import {switchMap, takeUntil} from "rxjs/operators";
+import {TokenService} from "./services/token.service";
+import {ConsumptionService} from "./services/consumption.service";
+import {DataSelectorService} from "./services/data-selector.service";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +17,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private themeService: ThemeService,
+    private consumptionService: ConsumptionService,
+    private dataSelectorService: DataSelectorService,
   ) {
   }
 
@@ -22,11 +27,17 @@ export class AppComponent implements OnInit, OnDestroy {
     if (savedTheme) {
       this.themeService.changeTheme(savedTheme);
     }
-    this.themeService.updateTheme$()
-      .pipe(
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
+    combineLatest([
+      this.themeService.updateTheme$()
+        .pipe(
+          takeUntil(this.destroy$)
+        ),
+      this.dataSelectorService.getContract$()
+        .pipe(
+          switchMap((contractId) => this.consumptionService.retrieveDataDateRange(contractId))
+        )
+    ])
+    .subscribe();
   }
 
   ngOnDestroy(): void {

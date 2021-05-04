@@ -18,14 +18,12 @@ export class DateRangeSelectorComponent implements OnInit {
 
   constructor(
     private consumptionService: ConsumptionService,
-    private dataSelectorService: DataSelectorService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSelectorService.getContract$()
+    this.consumptionService.getDataDateRange()
       .pipe(
         filter((value) => !!value),
-        switchMap((contract) => this.consumptionService.getDataDateRange(contract)),
         tap((range) => this.dateRange = range),
         tap(() => this.generateDefaultDates())
       )

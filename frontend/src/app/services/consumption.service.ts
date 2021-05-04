@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { CONSUMPTION_ENDPOINT} from "../utils/app.endpoints";
 import { ConsumptionUnitDto } from "../models/consumption-unit-dto";
 import {MaxMinDateDto} from "../models/max-min-date-dto";
+import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ConsumptionService {
 
   firstDateOfMonth: Date;
   lastDateOfMonth: Date;
+  dateRange: BehaviorSubject<MaxMinDateDto> = new BehaviorSubject<MaxMinDateDto>(null);
 
   constructor(private httpClient: HttpClient) {
     const date = new Date();
@@ -22,10 +24,12 @@ export class ConsumptionService {
     this.lastDateOfMonth = new Date(2020, 2, 30);
   }
 
-  getDataDateRange(contractId: string): Observable<MaxMinDateDto> {
+  retrieveDataDateRange(contractId: string): Observable<MaxMinDateDto>  {
     return this.httpClient.get<MaxMinDateDto>(CONSUMPTION_ENDPOINT + `maxmindate/get`, {
       params: { contractId }
-    });
+    }).pipe(
+      tap((range) => this.dateRange.next(range))
+    );
   }
 
   getData(contractId: string, measure: string, start?: Date, end?: Date): Observable<ConsumptionUnitDto[]> {
@@ -47,5 +51,9 @@ export class ConsumptionService {
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
     });
+  }
+
+  getDataDateRange(): Observable<MaxMinDateDto> {
+    return this.dateRange.asObservable();
   }
 }
