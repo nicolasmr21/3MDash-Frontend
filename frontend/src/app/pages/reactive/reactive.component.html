@@ -8,7 +8,8 @@
         *ngIf="reactiveMatrix.getValue()" class="col-12"
         mode="TOTAL"
         [theme]="theme" measure="Energía Reactiva"
-        [data$]="reactiveMatrix.asObservable()" units="kWh"
+        [data$]="reactiveMatrix.asObservable()"
+        units="kVArh"
         (dateEmitter)="onMatrixDateChange($event)"
       ></app-measure-matrix>
     </nb-accordion-item-body>
@@ -19,12 +20,14 @@
       Gráficos
     </nb-accordion-item-header>
     <nb-accordion-item-body>
-      <app-reactive-line-graph
+      <app-measure-line-graph
         *ngIf="reactiveData.getValue()" class="col-12"
+        units="kVArh"
+        measure="Energía Reactiva"
         [theme]="theme"
         [data$]="reactiveData.asObservable()"
         (dateEmitter)="onLineGraphicDateChange($event)"
-      ></app-reactive-line-graph>
+      ></app-measure-line-graph>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>

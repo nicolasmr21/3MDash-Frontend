@@ -1,8 +1,8 @@
 <nb-card [nbSpinner]="loading" status="primary">
   <nb-card-header class="row d-flex align-items-center m-0">
     <div class="col-6">
-      <h5 class="font-weight-light">Curva de Energía Activa contra Reactiva</h5>
-    </div>
+      <h5 class="font-weight-light">Curva de {{firstMeasure}} {{firstUnits ? '('+firstUnits+')' : ''}} contra {{secondMeasure}} ({{secondUnits ? '('+secondUnits+')' : ''}})</h5>
+    </div>`0
     <div class="col-6 d-flex justify-content-end">
       <app-date-range-selector (dateEmitter)="onDateChange($event)"></app-date-range-selector>
     </div>

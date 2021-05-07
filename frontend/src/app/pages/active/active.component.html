@@ -19,12 +19,14 @@
       Gráficos
     </nb-accordion-item-header>
     <nb-accordion-item-body>
-      <app-active-line-graph
+      <app-measure-line-graph
         *ngIf="activeData.getValue()" class="col-12"
+        units="kWh"
+        measure="Energía Activa"
         [theme]="theme"
         [data$]="activeData.asObservable()"
         (dateEmitter)="onLineGraphicDateChange($event)"
-      ></app-active-line-graph>
+      ></app-measure-line-graph>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>

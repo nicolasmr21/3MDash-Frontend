@@ -4,23 +4,27 @@ import {Observable} from "rxjs";
 import {filter, switchMap, tap} from "rxjs/operators";
 
 @Component({
-  selector: 'app-active-reactive-line-graph',
-  templateUrl: './active-reactive-line-graph.component.html',
-  styleUrls: ['./active-reactive-line-graph.component.scss']
+  selector: 'app-comparative-measure-line-graph',
+  templateUrl: './comparative-measure-line-graph.component.html',
+  styleUrls: ['./comparative-measure-line-graph.component.scss']
 })
-export class ActiveReactiveLineGraphComponent implements OnInit {
+export class ComparativeMeasureLineGraphComponent implements OnInit {
 
   @Input() theme: string;
   @Input() defaultPeriod: string;
-  @Input() activeData$: Observable<ConsumptionUnitDto[]>;
-  @Input() reactiveData$: Observable<ConsumptionUnitDto[]>;
+  @Input() firstMeasureData$: Observable<ConsumptionUnitDto[]>;
+  @Input() SecondMeasureData$: Observable<ConsumptionUnitDto[]>;
+  @Input() firstMeasure: string;
+  @Input() firstUnits: string;
+  @Input() secondMeasure: string;
+  @Input() secondUnits: string;
 
   @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
 
   options: any;
   loading: boolean;
-  activeData: ConsumptionUnitDto[];
-  reactiveData: ConsumptionUnitDto[];
+  firstMeasureData: ConsumptionUnitDto[];
+  secondMeasureData: ConsumptionUnitDto[];
 
   constructor(
   ) {
@@ -28,13 +32,13 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.activeData$
+    this.firstMeasureData$
       .pipe(
         filter((data) => !!data),
-        tap((data) => this.activeData = data),
-        switchMap(() => this.reactiveData$),
+        tap((data) => this.firstMeasureData = data),
+        switchMap(() => this.SecondMeasureData$),
         filter((data) => !!data),
-        tap((data) => this.reactiveData = data),
+        tap((data) => this.secondMeasureData = data),
         tap(() => this.generateOptions())
       )
       .subscribe();
@@ -50,7 +54,7 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
         }
       },
       legend: {
-        data:['Energía Activa', 'Energía Reactiva']
+        data:[this.firstMeasure, this.secondMeasure]
       },
       grid: {
         top: 70,
@@ -75,11 +79,10 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
             label: {
               formatter: function (params) {
                 return 'Fecha: ' + params.value
-                  + (params.seriesData.length ? ' Consumo: ' + params.seriesData[0].data + 'kVArh' : '');
-              }
-            }
+                  + (params.seriesData.length ? ' Consumo: ' + params.seriesData[0].data : '');
+              }            }
           },
-          data: this.reactiveData.map((item) => item.dateConsumption
+          data: this.secondMeasureData.map((item) => item.dateConsumption
           )
         },
         {
@@ -100,11 +103,10 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
             label: {
               formatter: function (params) {
                 return 'Fecha: ' + params.value
-                  + (params.seriesData.length ? ' Consumo: ' + params.seriesData[0].data + 'kWh' : '');
-              }
-            }
+                  + (params.seriesData.length ? ' Consumo: ' + params.seriesData[0].data : '');
+              }            }
           },
-          data: this.activeData.map((item) => item.dateConsumption)
+          data: this.firstMeasureData.map((item) => item.dateConsumption)
         }
       ],
       yAxis: [
@@ -114,23 +116,23 @@ export class ActiveReactiveLineGraphComponent implements OnInit {
       ],
       series: [
         {
-          name: 'Energía Reactiva',
+          name: this.secondMeasure,
           type: 'line',
           smooth: true,
           emphasis: {
             focus: 'series'
           },
-          data: this.reactiveData.map((value) => value.consumptionUnits)
+          data: this.secondMeasureData.map((value) => value.consumptionUnits)
         },
         {
-          name: 'Energía Activa',
+          name: this.firstMeasure,
           type: 'line',
           xAxisIndex: 1,
           smooth: true,
           emphasis: {
             focus: 'series'
           },
-          data: this.activeData.map((value) => value.consumptionUnits)
+          data: this.firstMeasureData.map((value) => value.consumptionUnits)
         }
       ]
     };

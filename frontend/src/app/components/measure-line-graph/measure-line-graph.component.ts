@@ -4,15 +4,16 @@ import { Observable } from "rxjs";
 import { filter, tap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-reactive-line-graph',
-  templateUrl: './reactive-line-graph.component.html',
-  styleUrls: ['./reactive-line-graph.component.scss']
+  selector: 'app-measure-line-graph',
+  templateUrl: './measure-line-graph.component.html',
+  styleUrls: ['./measure-line-graph.component.scss']
 })
-export class ReactiveLineGraphComponent implements OnInit {
+export class MeasureLineGraphComponent implements OnInit {
 
   @Input() theme: string;
-  @Input() defaultPeriod: string;
   @Input() data$: Observable<ConsumptionUnitDto[]>;
+  @Input() measure: string;
+  @Input() units: string;
 
   @Output() dateEmitter: EventEmitter<Date[]> = new EventEmitter<Date[]>();
 
@@ -39,7 +40,7 @@ export class ReactiveLineGraphComponent implements OnInit {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'axis',
-        formatter: 'Fecha: {b}  <br/> Consumo {c}kVArh',
+        formatter: 'Fecha: {b}  <br/> Consumo {c}' +this.units,
         axisPointer: {
           type: 'cross'
         }
@@ -58,7 +59,7 @@ export class ReactiveLineGraphComponent implements OnInit {
       yAxis: {
         type: 'value',
         axisLabel: {
-          formatter: '{value}kVArh'
+          formatter: '{value}' +this.units
         },
         axisPointer: {
           snap: true
@@ -74,7 +75,7 @@ export class ReactiveLineGraphComponent implements OnInit {
           smooth: true,
           data: this.data.map(value => value.consumptionUnits),
           lineStyle: {
-            color: 'rgba(52, 103, 255, 1)',
+            color: 'rgb(5, 216, 145)',
             width: 2,
             shadowColor: 'rgba(0,0,0,0.3)',
             shadowBlur: 10,
@@ -86,7 +87,7 @@ export class ReactiveLineGraphComponent implements OnInit {
     this.loading = false;
   }
 
-  onDateChange(dates: Date[]) {
+  onDateChange(dates: Date[]): void {
     this.dateEmitter.emit(dates);
   }
 }

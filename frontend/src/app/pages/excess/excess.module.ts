@@ -5,6 +5,7 @@ import { ExcessRoutingModule } from './excess-routing.module';
 import { ExcessComponent } from './excess.component';
 import {NbAccordionModule, NbSpinnerModule} from "@nebular/theme";
 import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matrix.module";
+import {MeasureLineGraphModule} from "../../components/measure-line-graph/measure-line-graph.module";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matri
     ExcessRoutingModule,
     NbAccordionModule,
     MeasureMatrixModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    MeasureLineGraphModule
   ]
 })
 export class ExcessModule { }

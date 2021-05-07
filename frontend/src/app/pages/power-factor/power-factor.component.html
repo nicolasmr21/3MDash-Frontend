@@ -8,7 +8,7 @@
         *ngIf="powerMatrix.getValue()" class="col-12"
         mode="PROMEDIO"
         [theme]="theme" measure="Factor de Potencia"
-        [data$]="powerMatrix.asObservable()" units="kWh"
+        [data$]="powerMatrix.asObservable()"
         (dateEmitter)="onMatrixDateChange($event)"
       ></app-measure-matrix>
     </nb-accordion-item-body>
@@ -19,6 +19,14 @@
       Gráficos
     </nb-accordion-item-header>
     <nb-accordion-item-body>
+      <app-measure-line-graph
+        *ngIf="powerData.getValue()" class="col-12"
+        units="kVArh"
+        measure="Factor de Potencia"
+        [theme]="theme"
+        [data$]="powerData.asObservable()"
+        (dateEmitter)="onLineGraphicDateChange($event)"
+      ></app-measure-line-graph>
     </nb-accordion-item-body>
   </nb-accordion-item>
 </nb-accordion>

@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClockValueGraphComponent } from './clock-value-graph.component';
-import { NbCardModule, NbSpinnerModule } from "@nebular/theme";
+import { MeasureLineGraphComponent } from "./measure-line-graph.component";
 import { NgxEchartsModule } from "ngx-echarts";
+import { NbCardModule, NbSelectModule, NbSpinnerModule } from "@nebular/theme";
 import { DateRangeSelectorModule } from "../date-range-selector/date-range-selector.module";
 
-
-
 @NgModule({
-  declarations: [ClockValueGraphComponent],
+  declarations: [MeasureLineGraphComponent],
   exports: [
-    ClockValueGraphComponent
+    MeasureLineGraphComponent
   ],
   imports: [
     CommonModule,
-    NbSpinnerModule,
-    NbCardModule,
     NgxEchartsModule,
+    NbCardModule,
+    NbSpinnerModule,
+    NbSelectModule,
     DateRangeSelectorModule
   ]
 })
-export class ClockValueGraphModule { }
+export class MeasureLineGraphModule { }

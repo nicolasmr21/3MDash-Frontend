@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActiveReactiveLineGraphComponent } from './active-reactive-line-graph.component';
+import { ComparativeMeasureLineGraphComponent } from './comparative-measure-line-graph.component';
 
 describe('ActiveReactiveLineGraphComponent', () => {
-  let component: ActiveReactiveLineGraphComponent;
-  let fixture: ComponentFixture<ActiveReactiveLineGraphComponent>;
+  let component: ComparativeMeasureLineGraphComponent;
+  let fixture: ComponentFixture<ComparativeMeasureLineGraphComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActiveReactiveLineGraphComponent ]
+      declarations: [ ComparativeMeasureLineGraphComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActiveReactiveLineGraphComponent);
+    fixture = TestBed.createComponent(ComparativeMeasureLineGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

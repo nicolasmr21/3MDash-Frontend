@@ -5,7 +5,7 @@ import { ActiveRoutingModule } from './active-routing.module';
 import { ActiveComponent } from './active.component';
 import {NbAccordionModule, NbCardModule, NbSpinnerModule, NbTabsetModule} from "@nebular/theme";
 import {MeasureMatrixModule} from "../../components/measure-matrix/measure-matrix.module";
-import {ActiveLineGraphModule} from "../../components/active-line-graph/active-line-graph.module";
+import {MeasureLineGraphModule} from "../../components/measure-line-graph/measure-line-graph.module";
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import {ActiveLineGraphModule} from "../../components/active-line-graph/active-l
     NbCardModule,
     MeasureMatrixModule,
     NbSpinnerModule,
-    ActiveLineGraphModule,
+    MeasureLineGraphModule,
     NbAccordionModule
   ]
 })
