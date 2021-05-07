@@ -38,8 +38,6 @@ export class MeasureLineGraphComponent implements OnInit {
   }
 
   generateOptions() {
-    const min = this.filterService.getMinValue(this.data);
-    console.log(min)
     this.options = {
       backgroundColor: 'transparent',
       tooltip: {
