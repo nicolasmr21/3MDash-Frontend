@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConsumptionUnitDto } from "../../models/consumption-unit-dto";
 import { Observable } from "rxjs";
 import { filter, tap } from "rxjs/operators";
+import { FilterService } from "../../services/filter.service";
 
 @Component({
   selector: 'app-measure-line-graph',
@@ -22,6 +23,7 @@ export class MeasureLineGraphComponent implements OnInit {
   data: ConsumptionUnitDto[];
 
   constructor(
+    private filterService: FilterService
   ) { }
 
   ngOnInit(): void {
@@ -36,11 +38,13 @@ export class MeasureLineGraphComponent implements OnInit {
   }
 
   generateOptions() {
+    const min = this.filterService.getMinValue(this.data);
+    console.log(min)
     this.options = {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'axis',
-        formatter: 'Fecha: {b}  <br/> Consumo {c}' +this.units,
+        formatter: 'Fecha: {b}  <br/> Consumo {c}' +(this.units || ''),
         axisPointer: {
           type: 'cross'
         }
@@ -58,8 +62,9 @@ export class MeasureLineGraphComponent implements OnInit {
       },
       yAxis: {
         type: 'value',
+        min: this.filterService.getMinValue(this.data).consumptionUnits,
         axisLabel: {
-          formatter: '{value}' +this.units
+          formatter: '{value}' +(this.units || '')
         },
         axisPointer: {
           snap: true

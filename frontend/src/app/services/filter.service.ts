@@ -11,7 +11,12 @@ export class FilterService {
   }
 
   getMaxValue(data: ConsumptionUnitDto[]): ConsumptionUnitDto {
-    const index = data?.reduce((prev, curr, i) => data[prev].consumptionUnits < curr.consumptionUnits ? i : prev, 0)
+    const index = data?.reduce((prev, curr, i) =>curr.consumptionUnits && data[prev]?.consumptionUnits < curr?.consumptionUnits ? i : prev, 0)
+    return data[index] ? data[index] : { consumptionUnits: 0, dateConsumption: ''};
+  }
+
+  getMinValue(data: ConsumptionUnitDto[]): ConsumptionUnitDto {
+    const index = data?.reduce((prev, curr, i) => curr.consumptionUnits && data[prev]?.consumptionUnits > curr?.consumptionUnits ? i : prev, data.length-1)
     return data[index] ? data[index] : { consumptionUnits: 0, dateConsumption: ''};
   }
 }
