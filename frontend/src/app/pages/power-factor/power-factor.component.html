@@ -21,7 +21,6 @@
     <nb-accordion-item-body>
       <app-measure-line-graph
         *ngIf="powerData.getValue()" class="col-12"
-        units="kVArh"
         measure="Factor de Potencia"
         [theme]="theme"
         [data$]="powerData.asObservable()"
