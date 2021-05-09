@@ -5,4 +5,6 @@ export class JwtDTO {
   authority: string[];
   clientId: string;
   contractId: string;
+  clientName: string;
+  contractName: string;
 }
