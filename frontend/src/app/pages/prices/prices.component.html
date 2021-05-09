@@ -1,1 +1,25 @@
-<p>prices works!</p>
+<nb-accordion multi [nbSpinner]="loading">
+  <nb-accordion-item [expanded]="!!exchangeMatrix.getValue()">
+    <nb-accordion-item-header>
+      Matriz
+    </nb-accordion-item-header>
+    <nb-accordion-item-body class="p-0">
+      <app-measure-matrix
+        *ngIf="exchangeMatrix.getValue()" class="col-12"
+        mode="PROMEDIO"
+        units="$/KWh"
+        [theme]="theme" measure="Precios de Bolsa"
+        [data$]="exchangeMatrix.asObservable()"
+        (dateEmitter)="onMatrixDateChange($event)"
+      ></app-measure-matrix>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item [expanded]="!!exchangeData.getValue()">
+    <nb-accordion-item-header>
+      Gráficos
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
