@@ -27,6 +27,7 @@ export class ExchangeService {
   getData(start?: Date, end?: Date): Observable<ExchangeDto[]> {
     return this.httpClient.get<ExchangeDto[]>(EXCHANGE_ENDPOINT + `filter`, {
       params: {
+        serviceId: '1',
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
@@ -37,6 +38,7 @@ export class ExchangeService {
   getMatrix(start?: Date, end?: Date): Observable<string[][]> {
     return this.httpClient.get<string[][]>(EXCHANGE_ENDPOINT + `matrix`, {
       params: {
+        serviceId: '1',
         start: start ? start.toISOString().split('T')[0] : this.firstDateOfMonth.toISOString().split('T')[0],
         end: end ? end.toISOString().split('T')[0] : this.lastDateOfMonth.toISOString().split('T')[0],
       }
