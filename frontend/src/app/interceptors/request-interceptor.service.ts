@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenService } from '../services/token.service';
+import { UserService } from '../services/user.service';
 import {GLOBAL_ENDPOINT} from "../utils/app.endpoints";
 
 @Injectable({
@@ -9,7 +9,7 @@ import {GLOBAL_ENDPOINT} from "../utils/app.endpoints";
 })
 export class RequestInterceptorService implements HttpInterceptor {
 
-  constructor(private tokenService: TokenService) { }
+  constructor(private tokenService: UserService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let intReq = req.clone({ url: GLOBAL_ENDPOINT + req.url });

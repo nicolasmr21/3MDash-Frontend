@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { APP_NAME } from "../../utils/app.titles";
 import { ThemeService } from "../../services/theme.service";
 import { UserLogin } from "../../models/user-login";
-import { TokenService } from "../../services/token.service";
+import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { catchError, first, tap } from "rxjs/operators";
 import { of } from "rxjs";
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private themeService: ThemeService,
-    private tokenService: TokenService,
+    private tokenService: UserService,
     private authService: AuthService,
     private toastService: NbToastrService,
     private dataSelectorService: DataSelectorService,

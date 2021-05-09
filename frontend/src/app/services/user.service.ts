@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {JwtDTO} from "../models/jwt-dto";
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUserName';
@@ -10,7 +9,7 @@ const CONTRACT_ID = 'AuthContractId';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenService {
+export class UserService {
 
   private roles: Array<string> = [];
 

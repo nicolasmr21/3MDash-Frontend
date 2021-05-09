@@ -3,7 +3,7 @@ import { ClientDto } from "../../models/client-dto";
 import { ContractDto } from "../../models/contract-dto";
 import { DataSelectorService } from "../../services/data-selector.service";
 import {first, tap} from "rxjs/operators";
-import {TokenService} from "../../services/token.service";
+import {UserService} from "../../services/user.service";
 import {of} from "rxjs";
 
 @Component({
@@ -21,7 +21,7 @@ export class DataSelectorComponent implements OnInit {
 
   constructor(
     private dataSelectorService: DataSelectorService,
-    private tokenService: TokenService
+    private tokenService: UserService
   ) { }
 
   ngOnInit(): void {

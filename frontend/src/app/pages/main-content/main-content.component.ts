@@ -3,7 +3,7 @@ import { MENU_ITEMS, PROFILE_ITEMS } from "../../utils/items.menu";
 import {NbSidebarService, NbToastrService} from "@nebular/theme";
 import { APP_NAME } from "../../utils/app.titles";
 import { ThemeService } from "../../services/theme.service";
-import { TokenService } from "../../services/token.service";
+import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
 import { DataSelectorService } from "../../services/data-selector.service";
 
@@ -23,7 +23,7 @@ export class MainContentComponent implements OnInit {
   constructor(
     private sidebarService: NbSidebarService,
     private themeService: ThemeService,
-    private tokenService: TokenService,
+    private tokenService: UserService,
     private router: Router,
     private toastService: NbToastrService,
     private dataSelectorService: DataSelectorService,

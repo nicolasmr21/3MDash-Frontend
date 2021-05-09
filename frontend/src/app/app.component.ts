@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ThemeService } from "./services/theme.service";
 import {combineLatest, Subject} from "rxjs";
 import {filter, switchMap, takeUntil} from "rxjs/operators";
-import {TokenService} from "./services/token.service";
+import {UserService} from "./services/user.service";
 import {ConsumptionService} from "./services/consumption.service";
 import {DataSelectorService} from "./services/data-selector.service";
 

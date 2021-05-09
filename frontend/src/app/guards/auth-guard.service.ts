@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { TokenService } from '../services/token.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
   realRol: string;
 
   constructor(
-    private tokenService: TokenService,
+    private tokenService: UserService,
     private router: Router
   ) { }
 
