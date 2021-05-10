@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { MATRIX_HEADERS_PROM, MATRIX_HEADERS_TOTAL} from "../../utils/app.titles";
 import { Observable } from "rxjs";
 import { filter, tap } from "rxjs/operators";
+import {ExportFileService} from "../../services/export-file.service";
 
 @Component({
   selector: 'app-measure-matrix',
@@ -26,6 +27,7 @@ export class MeasureMatrixComponent implements OnInit {
   options: any;
 
   constructor(
+    private exportFileService: ExportFileService
   ) { }
 
   ngOnInit(): void {
@@ -46,5 +48,10 @@ export class MeasureMatrixComponent implements OnInit {
 
   onDateChange(dates: Date[]) {
     this.dateEmitter.emit(dates);
+  }
+
+  exportExcel() {
+    const element = document.getElementById('matrix');
+    this.exportFileService.exportExcel(this.measure+'.xlsx', element);
   }
 }

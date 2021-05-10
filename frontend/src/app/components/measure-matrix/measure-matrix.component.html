@@ -5,10 +5,11 @@
     </div>
     <div class="col-6 d-flex justify-content-end">
       <app-date-range-selector (dateEmitter)="onDateChange($event)"></app-date-range-selector>
+      <button class="ml-3" size="small" nbButton status="basic" (click)="exportExcel()">Exportar excel</button>
     </div>
   </nb-card-header>
   <nb-card-body class="p-2 matrix">
-    <table class="table table-bordered" *ngIf="data">
+    <table id="matrix" class="table table-bordered" *ngIf="data">
       <thead>
       <tr>
         <th class="text-center" scope="col" *ngFor="let item of headers">{{item}}</th>

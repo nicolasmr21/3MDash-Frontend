@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeasureMatrixComponent } from './measure-matrix.component';
-import {NbCardModule, NbLayoutModule, NbSpinnerModule} from "@nebular/theme";
+import {NbButtonModule, NbCardModule, NbLayoutModule, NbSpinnerModule} from "@nebular/theme";
 import {DateRangeSelectorModule} from "../date-range-selector/date-range-selector.module";
 
 
@@ -16,7 +16,8 @@ import {DateRangeSelectorModule} from "../date-range-selector/date-range-selecto
     NbCardModule,
     NbSpinnerModule,
     DateRangeSelectorModule,
-    NbLayoutModule
+    NbLayoutModule,
+    NbButtonModule
   ]
 })
 export class MeasureMatrixModule { }
