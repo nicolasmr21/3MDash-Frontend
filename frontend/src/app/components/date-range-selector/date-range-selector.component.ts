@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ConsumptionService} from "../../services/consumption.service";
-import {DataSelectorService} from "../../services/data-selector.service";
-import {filter, switchMap, tap} from "rxjs/operators";
+import { filter, tap } from "rxjs/operators";
 import {MaxMinDateDto} from "../../models/max-min-date-dto";
 
 @Component({

@@ -21,7 +21,7 @@
     <nb-accordion-item-body>
       <app-measure-line-graph
         *ngIf="powerData.getValue()" class="col-12"
-        measure="Factor de Potencia"
+        measure="factor de potencia"
         [theme]="theme"
         [data$]="powerData.asObservable()"
         (dateEmitter)="onLineGraphicDateChange($event)"

@@ -2,7 +2,7 @@
   <app-clock-value-graph
     *ngIf="activeDataClock.getValue()"
     [theme]="theme"
-    measure="Energía Activa"
+    measure="energía activa"
     units="kW"
     [data$]="activeDataClock.asObservable()"
     class="col-6"
@@ -11,7 +11,7 @@
   <app-clock-value-graph
     *ngIf="reactiveDataClock.getValue()"
     [theme]="theme"
-    measure="Energía Reactiva"
+    measure="energía reactiva"
     units="kVAr"
     [data$]="reactiveDataClock.asObservable()"
     class="col-6"
@@ -20,8 +20,8 @@
   <app-comparative-measure-line-graph
     *ngIf="activeDataGraphic.getValue() && reactiveDataGraphic.getValue()"
     class="col-12" [theme]="theme"
-    firstMeasure="Energía Activa"
-    secondMeasure="Energía Reactiva"
+    firstMeasure="energía activa"
+    secondMeasure="energía reactiva"
     firstUnits="kWh"
     secondUnits="kVArh"
     [firstMeasureData$]="activeDataGraphic.asObservable()"

@@ -7,7 +7,7 @@
       <app-measure-matrix
         *ngIf="activeMatrix.getValue()" class="col-12"
         mode="TOTAL"
-        [theme]="theme" measure="Energía Activa"
+        [theme]="theme" measure="energía activa"
         [data$]="activeMatrix.asObservable()" units="kWh"
         (dateEmitter)="onMatrixDateChange($event)"
       ></app-measure-matrix>

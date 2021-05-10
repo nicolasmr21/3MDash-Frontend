@@ -23,7 +23,7 @@
       <app-measure-line-graph
         *ngIf="excessData.getValue()" class="col-12"
         units="kVArh"
-        measure="Exceso de Reactiva"
+        measure="exceso de reactiva"
         [theme]="theme"
         [data$]="excessData.asObservable()"
         (dateEmitter)="onLineGraphicDateChange($event)"

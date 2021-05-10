@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="loading" *ngIf="data" status="primary">
   <nb-card-header class="row d-flex align-items-center m-0">
     <div class="col-4">
-      <h6 class="font-weight-light">Potencia maxima de {{measure}}</h6>
+      <h6 class="font-weight-light">Potencia máxima de {{measure}}</h6>
     </div>
     <div class="col-8 d-flex justify-content-end">
       <app-date-range-selector (dateEmitter)="onDateChange($event)"></app-date-range-selector>
