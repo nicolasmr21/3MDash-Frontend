@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ClientDto } from "../../models/client-dto";
 import { ContractDto } from "../../models/contract-dto";
 import { DataSelectorService } from "../../services/data-selector.service";
-import {first, tap} from "rxjs/operators";
-import {UserService} from "../../services/user.service";
-import {of} from "rxjs";
+import { first, tap } from "rxjs/operators";
+import { UserService } from "../../services/user.service";
+import { of } from "rxjs";
+import { UserDto } from "../../models/user-dto";
 
 @Component({
   selector: 'app-data-selector',
@@ -18,14 +19,17 @@ export class DataSelectorComponent implements OnInit {
   clients: ClientDto[];
   contracts: ContractDto[];
   roles: Array<string> = [];
+  userData: UserDto;
 
   constructor(
     private dataSelectorService: DataSelectorService,
-    private tokenService: UserService
+    private tokenService: UserService,
+    private userService: UserService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.roles = this.tokenService.getAuthorities();
+    this.userData = await this.userService.getUserData(this.userService.getUserName()).toPromise();
     this.roles.includes('superadmin')
       ? this.getClients()
       : this.roles.includes('client-admin')

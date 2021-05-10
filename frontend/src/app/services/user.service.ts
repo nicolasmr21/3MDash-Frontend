@@ -1,4 +1,8 @@
 import { Injectable } from '@angular/core';
+import { USER_ENDPOINT } from "../utils/app.endpoints";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { UserDto } from "../models/user-dto";
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUserName';
@@ -13,7 +17,9 @@ export class UserService {
 
   private roles: Array<string> = [];
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   public setToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -64,5 +70,13 @@ export class UserService {
       });
     }
     return this.roles;
+  }
+
+  getUserData(userName: string): Observable<UserDto> {
+    return this.httpClient.get<UserDto>(USER_ENDPOINT + `get`, {
+      params: {
+        userName
+      }
+    });
   }
 }

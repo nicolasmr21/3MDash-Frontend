@@ -15,7 +15,9 @@ export class ExchangeService {
   firstDateOfMonth: Date;
   lastDateOfMonth: Date;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient
+  ) {
     const date = new Date();
     // for final version
     // this.firstDateOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
