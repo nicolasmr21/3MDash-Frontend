@@ -17,7 +17,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/active',
   },
   {
-    title: 'Energía Reactiva',
+    title: 'Energía reactiva',
     icon: 'activity-outline',
     link: '/reactive',
   },
@@ -37,13 +37,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/prices',
   },
   {
-    title: 'Energía Inductiva',
+    title: 'Energía inductiva',
     icon: 'activity-outline',
     hidden: true,
     link: '/inductive',
   },
   {
-    title: 'Energía Capacitiva',
+    title: 'Energía capacitiva',
     icon: 'activity-outline',
     hidden: true,
     link: '/capacitive',
