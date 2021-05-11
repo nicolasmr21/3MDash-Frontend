@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.onLoginError = false;
     const { user, password } = this.form.value
     this.userLogin = new UserLogin(user, password);
-    this.authService.login(this.userLogin)
+    this.authService.logIn(this.userLogin)
       .pipe(
         tap((response: JwtDTO) => {
           this.tokenService.setToken(response.token);
