@@ -31,6 +31,10 @@ const routes: Routes = [
         path: 'prices',
         loadChildren: () => import('../prices/prices.module').then(m => m.PricesModule)
       },
+      {
+        path: 'create-user',
+        loadChildren: () => import('../create-client/create-client.module').then(m => m.CreateClientModule)
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
     ]
   },

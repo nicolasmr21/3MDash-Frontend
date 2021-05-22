@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserLogin } from '../models/user-login';
 import { JwtDTO } from '../models/jwt-dto';
-import { AUTH_ENDPOINT } from "../utils/app.endpoints";
+import {AUTH_ENDPOINT, USER_ENDPOINT} from "../utils/app.endpoints";
+import {CreateUser} from "../models/create-user";
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class AuthService {
 
   public logOut(): void {
     window.sessionStorage.clear();
+  }
+
+  public createUser(user: CreateUser): Observable<any> {
+    return this.httpClient.post<any>(USER_ENDPOINT + 'create', user);
   }
 }

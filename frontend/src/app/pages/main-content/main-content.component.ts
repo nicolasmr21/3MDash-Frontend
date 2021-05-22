@@ -19,6 +19,7 @@ export class MainContentComponent implements OnInit {
   items = PROFILE_ITEMS;
   icon: string;
   username: string;
+  roles: string[];
 
   constructor(
     private sidebarService: NbSidebarService,
@@ -30,6 +31,7 @@ export class MainContentComponent implements OnInit {
   ) {
     this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
     this.username = tokenService.getUserName();
+    this.roles = tokenService.getAuthorities();
   }
 
   ngOnInit(): void {

@@ -1,0 +1,98 @@
+<nb-card status="primary" class="m-auto">
+  <nb-card-header class="text-center">
+    <h1>Creación de usuario</h1>
+  </nb-card-header>
+  <nb-card-body class="p-4">
+
+    <section>
+      <form aria-labelledby="title" [formGroup]="form" class="row">
+        <div class="form-group col-6">
+          <label class="label" for="input-user" hidden>Usuario:</label>
+          <input nbInput
+                 formControlName="user"
+                 fullWidth
+                 name="user"
+                 id="input-user"
+                 placeholder="Usuario"
+                 fieldSize="large"
+          >
+          <ng-container *ngIf="form.get('user').invalid && form.get('user').touched">
+            <p class="mt-1 caption status-danger" *ngIf="form.get('user').hasError('required')">
+              El usuario es requerido
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-6">
+              <span class="label-with-link">
+                <label class="label" for="input-password" hidden>Contraseña:</label>
+                <a class="forgot-password caption-2" routerLink="../request-password" hidden>Forgot Password?</a>
+              </span>
+          <input nbInput
+                 fullWidth
+                 formControlName="password"
+                 name="password"
+                 type="password"
+                 id="input-password"
+                 placeholder="Contraseña"
+                 fieldSize="large"
+          >
+          <ng-container *ngIf="form.get('password').invalid && form.get('password').touched">
+            <p class="mt-1 caption status-danger" *ngIf="form.get('password').hasError('required')">
+              La contraseña es requerida
+            </p>
+            <p class="mt-1 caption status-danger" *ngIf="form.get('password').hasError('minlength')">
+              La contraseña debe tener minimo 4 caracteres
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-6">
+          <label class="label" for="input-client" hidden>Cliente:</label>
+          <input nbInput
+                 formControlName="client"
+                 fullWidth
+                 name="client"
+                 id="input-client"
+                 placeholder="Identificador de cliente"
+                 fieldSize="large"
+          >
+          <ng-container *ngIf="form.get('client').invalid && form.get('client').touched">
+            <p class="mt-1 caption status-danger" *ngIf="form.get('client').hasError('required')">
+              El cliente es requerido
+            </p>
+          </ng-container>
+        </div>
+        <div class="form-group col-6">
+              <span class="label-with-link">
+                <label class="label" for="input-contract" hidden>Contraseña:</label>
+                <a class="forgot-password caption-2" routerLink="../request-password" hidden>Forgot Password?</a>
+              </span>
+          <input nbInput
+                 fullWidth
+                 formControlName="contract"
+                 name="contract"
+                 type="text"
+                 id="input-contract"
+                 placeholder="Identificador de contrato"
+                 fieldSize="large"
+          >
+          <ng-container *ngIf="form.get('contract').invalid && form.get('contract').touched">
+            <p class="mt-1 caption status-danger" *ngIf="form.get('contract').hasError('required')">
+              El contrato es requerido
+            </p>
+          </ng-container>
+        </div>
+        <button nbButton
+                [disabled]="form.invalid"
+                fullWidth
+                status="primary"
+                size="large"
+                class="m-3"
+                (click)="create()"
+        >
+          Iniciar sesión
+        </button>
+      </form>
+    </section>
+
+  </nb-card-body>
+</nb-card>
