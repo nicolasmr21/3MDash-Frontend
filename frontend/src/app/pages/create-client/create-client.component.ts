@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {APP_NAME} from "../../utils/app.titles";
 import {Router} from "@angular/router";
 import {ThemeService} from "../../services/theme.service";
@@ -23,6 +23,7 @@ export class CreateClientComponent implements OnInit {
   user: CreateUser;
   onCreateError: boolean;
   error: string;
+  selectedRol: string = '';
 
   constructor(
     private router: Router,
@@ -39,26 +40,32 @@ export class CreateClientComponent implements OnInit {
     this.form = this.formBuilder.group({
       user: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(4)]],
-      client: ['', [Validators.required]],
-      contract: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
+      client: ['', []],
+      contract: ['', []],
     });
   }
 
   create() {
-    this.onCreateError = false;
-    const { user, password, client, contract } = this.form.value
-    this.user = new CreateUser(user, password, client, contract);
-    this.authService.createUser(this.user)
-      .pipe(
-        tap((response: any) => {
-          this.toastService.show('Usuario creado correctamente', APP_NAME, { status: 'success' });
-        }),
-        catchError((err) => {
-          this.toastService.show('Error en la creación, datos inconsistentes', APP_NAME, { status: 'danger' });
-          return of(err);
-        }),
-        first()
-      )
-      .subscribe();
+    if((this.selectedRol == 'client-admin') && !this.form.value.client) {
+      this.toastService.show('Debe ingresar el identificador de cliente', APP_NAME, { status: 'warning' });
+    } else if((this.selectedRol == 'contract-admin') && !this.form.value.contract) {
+      this.toastService.show('Debe ingresar el identificador de contrato', APP_NAME, { status: 'warning' });
+    } else {
+      const { user, password, client, contract } = this.form.value
+      this.user = new CreateUser(user, password, client, contract);
+      this.authService.createUser(this.user)
+        .pipe(
+          tap((response: any) => {
+            this.toastService.show('Usuario creado correctamente', APP_NAME, { status: 'success' });
+          }),
+          catchError((err) => {
+            this.toastService.show('Error en la creación, datos inconsistentes', APP_NAME, { status: 'danger' });
+            return of(err);
+          }),
+          first()
+        )
+        .subscribe();
+    }
   }
 }

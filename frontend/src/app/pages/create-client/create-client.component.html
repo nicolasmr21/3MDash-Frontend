@@ -6,6 +6,18 @@
 
     <section>
       <form aria-labelledby="title" [formGroup]="form" class="row">
+        <div class="form-group col-12">
+          <nb-select
+            size="large"
+            fullWidth placeholder="Seleccione un rol"
+            [(selected)]="selectedRol"
+            formControlName="rol"
+          >
+            <nb-option value="superadmin">Superadmin</nb-option>
+            <nb-option value="client-admin">Administrador de cliente</nb-option>
+            <nb-option value="contract-admin">Administrador de contracto</nb-option>
+          </nb-select>
+        </div>
         <div class="form-group col-6">
           <label class="label" for="input-user" hidden>Usuario:</label>
           <input nbInput
@@ -45,13 +57,14 @@
             </p>
           </ng-container>
         </div>
-        <div class="form-group col-6">
+        <div class="form-group col-6" *ngIf="selectedRol && selectedRol !== 'superadmin' && selectedRol !== 'contract-admin'">
           <label class="label" for="input-client" hidden>Cliente:</label>
           <input nbInput
                  formControlName="client"
                  fullWidth
                  name="client"
                  id="input-client"
+                 type="number"
                  placeholder="Identificador de cliente"
                  fieldSize="large"
           >
@@ -61,16 +74,15 @@
             </p>
           </ng-container>
         </div>
-        <div class="form-group col-6">
+        <div class="form-group col-6" *ngIf="selectedRol && selectedRol !== 'superadmin' && selectedRol !== 'client-admin'">
               <span class="label-with-link">
-                <label class="label" for="input-contract" hidden>Contraseña:</label>
-                <a class="forgot-password caption-2" routerLink="../request-password" hidden>Forgot Password?</a>
+                <label class="label" for="input-contract" hidden>Contrato:</label>
               </span>
           <input nbInput
                  fullWidth
                  formControlName="contract"
                  name="contract"
-                 type="text"
+                 type="number"
                  id="input-contract"
                  placeholder="Identificador de contrato"
                  fieldSize="large"
