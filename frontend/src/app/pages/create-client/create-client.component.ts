@@ -25,7 +25,7 @@ export class CreateClientComponent implements OnInit {
   user: CreateUser;
   onCreateError: boolean;
   error: string;
-  selectedRol: string = '';
+  selectedRol: string;
   clients: ClientDto[];
   contracts: ContractDto[];
   selectedClient: string;
@@ -40,17 +40,21 @@ export class CreateClientComponent implements OnInit {
     private toastService: NbToastrService,
     private dataSelectorService: DataSelectorService,
   ) {
-    this.form = this.formBuilder.group({
-      user: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-      rol: ['', [Validators.required]],
-      client: ['', []],
-      contract: ['', []],
-    });
+    this.buildForm();
   }
 
   ngOnInit(): void {
     this.getClients();
+  }
+
+  buildForm(): void {
+    this.form = this.formBuilder.group({
+      user: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      rol: ['', [Validators.required]],
+      client: [null, []],
+      contract: [null, []],
+    });
   }
 
   create(): void {
@@ -61,15 +65,15 @@ export class CreateClientComponent implements OnInit {
     } else {
       const { user, password, client, contract } = this.form.value
       this.user = new CreateUser(user, password, client, contract);
-      console.log(this.user);
       this.authService.createUser(this.user)
         .pipe(
           tap((response: any) => {
             this.toastService.show('Usuario creado correctamente', APP_NAME, { status: 'success' });
+            this.resetValues();
           }),
           catchError((err) => {
-            console.log(err);
             this.toastService.show('Error en la creación, datos inconsistentes', APP_NAME, { status: 'danger' });
+            this.resetValues();
             return of(err);
           }),
           first()
@@ -102,5 +106,7 @@ export class CreateClientComponent implements OnInit {
   resetValues() {
     this.selectedClient = null;
     this.selectedContract = null;
+    this.form.value.client = null;
+    this.form.value.contract = null;
   }
 }

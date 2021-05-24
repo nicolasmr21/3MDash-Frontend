@@ -9,9 +9,9 @@
         <div class="form-group col-12">
           <nb-select
             size="large"
+            formControlName="rol"
             fullWidth placeholder="Seleccione un rol"
             [(selected)]="selectedRol"
-            formControlName="rol"
             (selectedChange)="resetValues()"
           >
             <nb-option value="superadmin">Superadmin</nb-option>
