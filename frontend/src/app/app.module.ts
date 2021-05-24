@@ -40,7 +40,6 @@ import { interceptorErrorProvider } from "./interceptors/error-interceptor.servi
   ],
   providers: [
     interceptorRequestProvider,
-    interceptorErrorProvider,
   ],
   bootstrap: [
     AppComponent
