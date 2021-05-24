@@ -3,7 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { CreateClientRoutingModule } from './create-client-routing.module';
 import { CreateClientComponent } from './create-client.component';
-import {NbButtonModule, NbCardModule, NbInputModule, NbSelectModule} from "@nebular/theme";
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbInputModule,
+  NbSelectModule,
+  NbSpinnerModule,
+  NbTooltipModule
+} from "@nebular/theme";
 import {ReactiveFormsModule} from "@angular/forms";
 
 
@@ -16,7 +23,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     NbInputModule,
     ReactiveFormsModule,
     NbCardModule,
-    NbSelectModule
+    NbSelectModule,
+    NbSpinnerModule,
+    NbTooltipModule
   ]
 })
 export class CreateClientModule { }

@@ -9,6 +9,9 @@ import {NbToastrService} from "@nebular/theme";
 import {catchError, first, tap} from "rxjs/operators";
 import {of} from "rxjs";
 import {CreateUser} from "../../models/create-user";
+import {ClientDto} from "../../models/client-dto";
+import {ContractDto} from "../../models/contract-dto";
+import {DataSelectorService} from "../../services/data-selector.service";
 
 @Component({
   selector: 'app-create-client',
@@ -24,6 +27,10 @@ export class CreateClientComponent implements OnInit {
   onCreateError: boolean;
   error: string;
   selectedRol: string = '';
+  clients: ClientDto[];
+  contracts: ContractDto[];
+  selectedClient: string;
+  selectedContract: string;
 
   constructor(
     private router: Router,
@@ -32,6 +39,7 @@ export class CreateClientComponent implements OnInit {
     private tokenService: UserService,
     private authService: AuthService,
     private toastService: NbToastrService,
+    private dataSelectorService: DataSelectorService,
   ) {
   }
 
@@ -44,9 +52,10 @@ export class CreateClientComponent implements OnInit {
       client: ['', []],
       contract: ['', []],
     });
+    this.getClients();
   }
 
-  create() {
+  create(): void {
     if((this.selectedRol == 'client-admin') && !this.form.value.client) {
       this.toastService.show('Debe ingresar el identificador de cliente', APP_NAME, { status: 'warning' });
     } else if((this.selectedRol == 'contract-admin') && !this.form.value.contract) {
@@ -54,6 +63,7 @@ export class CreateClientComponent implements OnInit {
     } else {
       const { user, password, client, contract } = this.form.value
       this.user = new CreateUser(user, password, client, contract);
+      console.log(this.user);
       this.authService.createUser(this.user)
         .pipe(
           tap((response: any) => {
@@ -67,5 +77,26 @@ export class CreateClientComponent implements OnInit {
         )
         .subscribe();
     }
+  }
+
+  getClients(): void {
+    this.dataSelectorService.getClients()
+      .pipe(
+        tap((clients) => this.clients = clients ),
+        tap(() => this.onClientSelected(this.selectedClient)),
+        first()
+      )
+      .subscribe();
+  }
+
+  onClientSelected(clientId: string) {
+    clientId
+      ? this.dataSelectorService.getContractsByClient(clientId)
+        .pipe(
+          tap((contracts) => this.contracts = contracts ),
+          first()
+        )
+        .subscribe()
+      : of(null);
   }
 }

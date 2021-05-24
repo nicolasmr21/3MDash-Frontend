@@ -57,41 +57,15 @@
             </p>
           </ng-container>
         </div>
-        <div class="form-group col-6" *ngIf="selectedRol && selectedRol !== 'superadmin' && selectedRol !== 'contract-admin'">
-          <label class="label" for="input-client" hidden>Cliente:</label>
-          <input nbInput
-                 formControlName="client"
-                 fullWidth
-                 name="client"
-                 id="input-client"
-                 type="number"
-                 placeholder="Identificador de cliente"
-                 fieldSize="large"
-          >
-          <ng-container *ngIf="form.get('client').invalid && form.get('client').touched">
-            <p class="mt-1 caption status-danger" *ngIf="form.get('client').hasError('required')">
-              El cliente es requerido
-            </p>
-          </ng-container>
+        <div class="form-group col-6" *ngIf="selectedRol && selectedRol !== 'superadmin'">
+          <nb-select formControlName="client" fullWidth [nbSpinner]="!clients" nbTooltip="Cliente"  class="col p-0 mr-3" placeholder="Seleccione un cliente" [(selected)]="selectedClient" (selectedChange)="onClientSelected($event)">
+            <nb-option *ngFor="let client of clients" [value]="client.id.toString()">{{client.name}}</nb-option>
+          </nb-select>
         </div>
         <div class="form-group col-6" *ngIf="selectedRol && selectedRol !== 'superadmin' && selectedRol !== 'client-admin'">
-              <span class="label-with-link">
-                <label class="label" for="input-contract" hidden>Contrato:</label>
-              </span>
-          <input nbInput
-                 fullWidth
-                 formControlName="contract"
-                 name="contract"
-                 type="number"
-                 id="input-contract"
-                 placeholder="Identificador de contrato"
-                 fieldSize="large"
-          >
-          <ng-container *ngIf="form.get('contract').invalid && form.get('contract').touched">
-            <p class="mt-1 caption status-danger" *ngIf="form.get('contract').hasError('required')">
-              El contrato es requerido
-            </p>
-          </ng-container>
+          <nb-select formControlName="contract" fullWidth [nbSpinner]="!contracts && !clients" nbTooltip="Contrato" class="col p-0" placeholder="Seleccione un contrato" [(selected)]="selectedContract" [hidden]="!selectedClient || !contracts" >
+            <nb-option *ngFor="let contract of contracts" [value]="contract.id.toString()">{{contract.name}}</nb-option>
+          </nb-select>
         </div>
         <button nbButton
                 [disabled]="form.invalid"
