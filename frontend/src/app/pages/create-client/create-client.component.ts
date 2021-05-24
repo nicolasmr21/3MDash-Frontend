@@ -99,4 +99,10 @@ export class CreateClientComponent implements OnInit {
         .subscribe()
       : of(null);
   }
+
+  resetValues() {
+    this.form.reset();
+    this.selectedClient = null;
+    this.selectedContract = null;
+  }
 }

@@ -12,6 +12,7 @@
             fullWidth placeholder="Seleccione un rol"
             [(selected)]="selectedRol"
             formControlName="rol"
+            (selectedChange)="resetValues()"
           >
             <nb-option value="superadmin">Superadmin</nb-option>
             <nb-option value="client-admin">Administrador de cliente</nb-option>
