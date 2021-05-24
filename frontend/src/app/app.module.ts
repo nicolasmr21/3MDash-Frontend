@@ -16,6 +16,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { HttpClientModule } from '@angular/common/http';
 import * as echarts from 'echarts';
 import { interceptorRequestProvider } from "./interceptors/request-interceptor.service";
+import { interceptorErrorProvider } from "./interceptors/error-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { interceptorRequestProvider } from "./interceptors/request-interceptor.s
   ],
   providers: [
     interceptorRequestProvider,
+    interceptorErrorProvider,
   ],
   bootstrap: [
     AppComponent
