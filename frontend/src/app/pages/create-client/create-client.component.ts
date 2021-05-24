@@ -22,7 +22,6 @@ export class CreateClientComponent implements OnInit {
 
   form: FormGroup;
   title = APP_NAME;
-  icon: string;
   user: CreateUser;
   onCreateError: boolean;
   error: string;
@@ -41,10 +40,6 @@ export class CreateClientComponent implements OnInit {
     private toastService: NbToastrService,
     private dataSelectorService: DataSelectorService,
   ) {
-  }
-
-  ngOnInit(): void {
-    this.icon = localStorage.getItem('theme') ? localStorage.getItem('icon') : 'moon-outline';
     this.form = this.formBuilder.group({
       user: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(4)]],
@@ -52,6 +47,9 @@ export class CreateClientComponent implements OnInit {
       client: ['', []],
       contract: ['', []],
     });
+  }
+
+  ngOnInit(): void {
     this.getClients();
   }
 
@@ -70,6 +68,7 @@ export class CreateClientComponent implements OnInit {
             this.toastService.show('Usuario creado correctamente', APP_NAME, { status: 'success' });
           }),
           catchError((err) => {
+            console.log(err);
             this.toastService.show('Error en la creación, datos inconsistentes', APP_NAME, { status: 'danger' });
             return of(err);
           }),
@@ -101,7 +100,6 @@ export class CreateClientComponent implements OnInit {
   }
 
   resetValues() {
-    this.form.reset();
     this.selectedClient = null;
     this.selectedContract = null;
   }
