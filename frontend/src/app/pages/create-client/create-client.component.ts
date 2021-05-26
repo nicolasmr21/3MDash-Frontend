@@ -59,9 +59,9 @@ export class CreateClientComponent implements OnInit {
 
   create(): void {
     if((this.selectedRol == 'client-admin') && !this.form.value.client) {
-      this.toastService.show('Debe ingresar el identificador de cliente', APP_NAME, { status: 'warning' });
+      this.toastService.show('Debe seleccionar el cliente', APP_NAME, { status: 'warning' });
     } else if((this.selectedRol == 'contract-admin') && !this.form.value.contract) {
-      this.toastService.show('Debe ingresar el identificador de contrato', APP_NAME, { status: 'warning' });
+      this.toastService.show('Debe seleccionar el contrato', APP_NAME, { status: 'warning' });
     } else {
       const { user, password, client, contract } = this.form.value
       this.user = new CreateUser(user, password, client, contract);
