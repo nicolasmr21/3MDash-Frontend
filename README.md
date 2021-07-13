@@ -24,3 +24,5 @@ Estos componentes como toda la aplicación recibe parámetros que se ajustan a l
 Los parámetros importantes de la aplicación se encuentran ubicados en *3MDash-Frontend/frontend/src/app/utils/* donde se podrá especificar los endpoint de la API REST la cual presta los servicios que permiten consultar los datos de consumo.
 
 El diseño de la aplicación se adapta a los parámetros de la librería Nebular, por lo tanto si se quiere modificar el tema se debería consultar la documentación previamente citada.
+
+Para compilar la aplicación leer el readme de la aplicación en *3MDash-Frontend/frontend*
