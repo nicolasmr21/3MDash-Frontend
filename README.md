@@ -17,6 +17,6 @@ Los componentes realizados se basan en las tecnologias previamente citadas, dond
 * measure-line-graph
 * comparative-measure-line-graph
 
-Y un componente grafico generico para las matrices llamado **measure-matrix***
+Y un componente grafico generico para las matrices llamado **measure-matrix**
 
 Estos componentes como toda la aplicación recibe parametros que se ajustan a la naturaleza de la medida. Para más información dirigirse a *3MDash-Frontend/frontend/src/app/components/*
