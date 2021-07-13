@@ -22,3 +22,5 @@ Y un componente grafico generico para las matrices llamado **measure-matrix**
 Estos componentes como toda la aplicación recibe parametros que se ajustan a la naturaleza de la medida. Para más información dirigirse a *3MDash-Frontend/frontend/src/app/components/*
 
 Los parametros importantes de la aplicación se encuentran ubicados en *3MDash-Frontend/frontend/src/app/utils/* donde se podrá especificar los endpoint de la API REST la cual presta los servicios que permiten consultar los datos de consumo.
+
+El diseño de la aplicación se adapta a los parametros de la libreria Nebular, por lo tanto si se quiere modificar el tema se debería consultar la documentación previamente citada.
